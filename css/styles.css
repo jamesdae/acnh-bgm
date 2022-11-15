@@ -2,8 +2,7 @@
   font-family: Gurajada, serif;
 }
 
-video {
-  border: 1px solid black;
+audio {
   height: 50px;
   width: 100%;
 }
@@ -32,17 +31,31 @@ img {
 
 header {
   background-color: #35761e;
+  position: sticky;
+  top: 0;
+  z-index: 10;
 }
 
 i {
   color: white;
+  max-height: 80px;
+  scale: 4.4;
 }
 
 ul {
-  width: 90%;
   background-color: #f3eeda;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 20px;
+  padding: 20px 10px;
 }
 
 body {
   background-color: #91c166;
+}
+
+i.headnav {
+  scale: 1.5;
 }

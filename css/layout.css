@@ -18,8 +18,14 @@
   width: 100%;
 }
 
-.column-half {
-  text-align: center;
+.icon {
+  align-items: center;
+  justify-content: center;
+}
+
+#head {
+  justify-content: space-between;
+  align-items: center;
 }
 
 @media screen and (min-width: 768px) {
@@ -35,13 +41,27 @@
   .column-half {
     width: 50%;
   }
-}
 
-#head {
-  justify-content: space-between;
-  align-items: center;
-}
+  .icon.left {
+    position: sticky;
+    top: 50%;
+  }
 
-i.column-half {
-  align-self: center;
+  div.icon {
+    align-self: center;
+    height: 80px;
+    flex-direction: column;
+  }
+
+  main.container {
+    padding: 1rem 0;
+  }
+
+  .right {
+    text-align: center;
+  }
+
+  i.fa-cloud-moon-rain {
+    padding: 15px 0;
+  }
 }
