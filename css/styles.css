@@ -13,6 +13,7 @@ img {
 }
 
 .logo {
+  padding-top: 5px;
   width: 100px;
   height: 95px;
   display: flex;
@@ -30,13 +31,18 @@ img {
 }
 
 header {
-  display: flex;
-  justify-content: space-between;
-  background-color: #91c166;
-  align-items: center;
-  padding: 10px 10px 0;
+  background-color: #35761e;
 }
 
 i {
   color: white;
+}
+
+ul {
+  width: 90%;
+  background-color: #f3eeda;
+}
+
+body {
+  background-color: #91c166;
 }

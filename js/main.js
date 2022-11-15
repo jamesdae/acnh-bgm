@@ -1,6 +1,6 @@
 var xhr = new XMLHttpRequest();
 // var $body = document.querySelector('body');
-var $main = document.querySelector('main');
+var $main = document.querySelector('ul');
 var arrayOfSongs = [];
 // var objectOfSongs = {};
 var dawndusk = [];
@@ -18,22 +18,34 @@ xhr.addEventListener('load', function () {
     // bunch of switch case? for i when it gets to 18, 36, 24, or for if property at songs[i] has certain weather or number
     if (arrayOfSongs[i].hour < 6) {
       dawndusk.push(arrayOfSongs[i]);
+      var $song = document.createElement('video');
+      $song.setAttribute('controls', '');
+      // $song.setAttribute('autoplay', '');
+      $song.setAttribute('loop', '');
+      $song.setAttribute('name', 'media');
+
+      var $audio = document.createElement('source');
+      $audio.setAttribute('src', dawndusk[i].music_uri);
+      $audio.setAttribute('type', 'audio/mpeg');
+
+      $main.appendChild($song);
+      $song.appendChild($audio);
     }
   }
 
   // console.log('value of dawndusk:', dawndusk);
 
-  var $song = document.createElement('video');
-  $song.setAttribute('controls', '');
-  $song.setAttribute('autoplay', '');
-  $song.setAttribute('loop', '');
-  $song.setAttribute('name', 'media');
+  // var $song = document.createElement('video');
+  // $song.setAttribute('controls', '');
+  // // $song.setAttribute('autoplay', '');
+  // $song.setAttribute('loop', '');
+  // $song.setAttribute('name', 'media');
 
-  var $audio = document.createElement('source');
-  $audio.setAttribute('src', xhr.response.BGM_24Hour_12_Snowy.music_uri);
-  $audio.setAttribute('type', 'audio/mpeg');
+  // var $audio = document.createElement('source');
+  // $audio.setAttribute('src', xhr.response.BGM_24Hour_12_Snowy.music_uri);
+  // $audio.setAttribute('type', 'audio/mpeg');
 
-  $main.appendChild($song);
-  $song.appendChild($audio);
+  // $main.appendChild($song);
+  // $song.appendChild($audio);
 });
 xhr.send();
