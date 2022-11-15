@@ -1,0 +1,42 @@
+* {
+  font-family: Gurajada, serif;
+}
+
+video {
+  border: 1px solid black;
+  height: 50px;
+  width: 100%;
+}
+
+img {
+  width: 100%;
+}
+
+.logo {
+  width: 100px;
+  height: 95px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.logo p {
+  margin: 0;
+  font-size: 24px;
+  height: auto;
+  position: relative;
+  bottom: 15px;
+  color: white;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  background-color: #91c166;
+  align-items: center;
+  padding: 10px 10px 0;
+}
+
+i {
+  color: white;
+}
