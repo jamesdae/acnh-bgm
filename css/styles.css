@@ -1,5 +1,6 @@
 * {
   font-family: Gurajada, serif;
+  color: white;
 }
 
 audio {
@@ -9,6 +10,11 @@ audio {
 
 img {
   width: 100%;
+}
+
+li p {
+  color: #7a776d;
+  margin: 0 10px 0 0;
 }
 
 .logo {

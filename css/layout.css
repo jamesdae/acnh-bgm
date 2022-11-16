@@ -19,13 +19,27 @@
 }
 
 .icon {
+  display: flex;
   align-items: center;
   justify-content: center;
+  align-self: center;
+  height: 80px;
+  flex-direction: column;
 }
 
 #head {
   justify-content: space-between;
   align-items: center;
+}
+
+.icon p {
+  margin: 0;
+  position: relative;
+  top: 24px;
+}
+
+.list {
+  flex-direction: row-reverse;
 }
 
 @media screen and (min-width: 768px) {
@@ -47,21 +61,20 @@
     top: 50%;
   }
 
-  div.icon {
-    align-self: center;
-    height: 80px;
-    flex-direction: column;
-  }
-
-  main.container {
-    padding: 1rem 0;
-  }
-
-  .right {
-    text-align: center;
-  }
-
   i.fa-cloud-moon-rain {
     padding: 15px 0;
   }
+
+  .icon p {
+    position: relative;
+    top: 10px;
+  }
+}
+
+main.container {
+  padding: 1rem 0;
+}
+
+.icon.right {
+  padding: 1.5rem 0 0;
 }
