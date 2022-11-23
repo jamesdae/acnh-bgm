@@ -1,0 +1,73 @@
+* {
+  font-family: Gurajada, serif;
+}
+
+header {
+  background-color: #35761e;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+body {
+  background-color: #91c166;
+}
+
+.audioplayer {
+  height: 50px;
+  width: calc(100% - 90px);
+}
+
+.mainlogo {
+  width: 100%;
+}
+
+.songtitle {
+  margin: 0 45px 0 0;
+  align-self: flex-end;
+}
+
+.logo {
+  padding-top: 5px;
+  width: 100px;
+  height: 95px;
+}
+
+.logo > p.whitetext {
+  margin: 0;
+  font-size: 24px;
+  bottom: 15px;
+}
+
+.bigicon {
+  max-height: 80px;
+  scale: 4.4;
+}
+
+.ul-songs {
+  background-color: #f3eeda;
+  border-radius: 20px;
+  display: flex;
+  gap: 15px;
+  padding: 20px 10px;
+  box-shadow: 2px 2px 5px #7a776d;
+  color: #7a776d;
+}
+
+i.headnav {
+  scale: 1.5;
+}
+
+.leaf {
+  width: 40px;
+  align-self: center;
+}
+
+.whitetext {
+  color: white;
+}
+
+.playing {
+  border: 1px solid green;
+  border-radius: 20px;
+}

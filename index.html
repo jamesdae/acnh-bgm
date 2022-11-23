@@ -5,14 +5,45 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>AJAX Project</title>
   <link rel="icon" href="images/favicon.ico">
+  <link rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+  integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg=="
+  crossorigin="anonymous"
+  referrerpolicy="no-referrer">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Gurajada&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/reset.css">
   <link rel="stylesheet" href="css/layout.css">
   <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
   <header>
+    <div class="container row centereditems" id="head">
+      <div class="logo row justifiedcenter">
+        <img src="images/acnhlogo.png" alt="mainlogo" class="mainlogo">
+        <p class="whitetext relative">BGM</p>
+      </div>
+      <i class="fa-solid fa-music headnav whitetext"></i>
+    </div>
   </header>
-  <main>
+  <main class="container">
+    <div data-view="dailysongs" class="row">
+      <div class="column-half">
+        <div class="icon column left centereditems justifiedcenter">
+          <i class="fa-regular fa-clock bigicon whitetext"></i>
+        </div>
+      </div>
+      <div class="column-half right">
+        <ul class="column ul-songs">
+
+        </ul>
+        <div class="icon column right centereditems justifiedcenter">
+          <i class="fa-solid fa-cloud-moon-rain bigicon whitetext"></i>
+          <p class="whitetext relative">Weather</p>
+        </div>
+      </div>
+    </div>
   </main>
   <script src="js/data.js"></script>
   <script src="js/main.js"></script>
