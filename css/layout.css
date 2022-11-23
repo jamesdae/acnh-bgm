@@ -32,6 +32,12 @@
   align-items: center;
 }
 
+ul > p {
+  margin: 0;
+  text-align: center;
+  text-decoration: underline;
+}
+
 .icon p {
   margin: 0;
   position: relative;
@@ -81,6 +87,10 @@ main.container {
 
 @media screen and (max-width: 600px) {
   ul {
-    margin: 0 10px;
+    margin: 16px 10px;
   }
+}
+
+.leafsong {
+  justify-content: space-around;
 }

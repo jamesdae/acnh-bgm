@@ -13,7 +13,9 @@ xhr.addEventListener('load', function () {
   // objectOfSongs = xhr.response;
   // console.log('Array of songs:', arrayOfSongs);
   // console.log('Object of songs:', objectOfSongs);
-
+  var timeOfDay = document.createElement('p');
+  timeOfDay.textContent = 'Dawn / Dusk';
+  $main.appendChild(timeOfDay);
   for (var i = 0; i < arrayOfSongs.length; i++) {
     // bunch of switch case? for i when it gets to 18, 36, 24, or for if property at songs[i] has certain weather or number
 
@@ -69,7 +71,9 @@ function pauseOthers(event) {
 function startNext(event) {
   var $songs = document.querySelectorAll('audio');
   for (var i = 0; i < $songs.length; i++) {
-    if ($songs[i] === event.target) {
+    if (!$songs[i + 1]) {
+      return;
+    } else if ($songs[i] === event.target) {
       $songs[i + 1].play();
     }
   }
@@ -82,7 +86,9 @@ function firstChars(length, string) {
   }
   for (var i = 0; i < string.length - (string.length - length); i++) {
     newString += string[i];
-  } return newString;
+  }
+  newString = militaryTo12(newString);
+  return newString;
 }
 
 function lastChars(length, string) {
@@ -93,4 +99,20 @@ function lastChars(length, string) {
   for (var i = string.length - length; i < string.length; i++) {
     newString += string[i];
   } return newString;
+}
+
+function militaryTo12(newString) {
+  if (newString === '00') {
+    newString = '12AM';
+  } else if (Number(newString) < 10) {
+    newString = newString[newString.length - 1] + 'AM';
+  } else if (Number(newString) >= 10 && Number(newString) < 12) {
+    newString += 'AM';
+  } else if (newString === '12') {
+    newString += 'PM';
+  } else if (Number(newString) > 12) {
+    newString = Number(newString) - 12;
+    newString += 'PM';
+  }
+  return newString;
 }
