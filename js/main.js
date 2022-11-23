@@ -1,25 +1,17 @@
 var xhr = new XMLHttpRequest();
-// var $body = document.querySelector('body');
 var $main = document.querySelector('ul');
 var arrayOfSongs = [];
-// var objectOfSongs = {};
 var dawndusk = [];
 
 xhr.open('GET', 'https://acnhapi.com/v1/backgroundmusic');
 xhr.responseType = 'json';
 xhr.addEventListener('load', function () {
-  // console.log(xhr.status);
   arrayOfSongs = Object.values(xhr.response);
-  // objectOfSongs = xhr.response;
-  // console.log('Array of songs:', arrayOfSongs);
-  // console.log('Object of songs:', objectOfSongs);
   var timeOfDay = document.createElement('p');
   timeOfDay.setAttribute('class', 'category');
   timeOfDay.textContent = 'Dawn / Dusk';
   $main.appendChild(timeOfDay);
   for (var i = 0; i < arrayOfSongs.length; i++) {
-    // bunch of switch case? for i when it gets to 18, 36, 24, or for if property at songs[i] has certain weather or number
-
     dawndusk.push(arrayOfSongs[i]);
     var $listitem = document.createElement('li');
     $listitem.setAttribute('class', 'row column');
@@ -42,8 +34,6 @@ xhr.addEventListener('load', function () {
 
     var $song = document.createElement('audio');
     $song.setAttribute('controls', '');
-    // $song.setAttribute('autoplay', '');
-    // $song.setAttribute('loop', '');
     $song.setAttribute('name', 'media');
     $song.setAttribute('class', 'audioplayer');
 
@@ -58,7 +48,6 @@ xhr.addEventListener('load', function () {
     $song.addEventListener('play', pauseOthers);
     $song.addEventListener('ended', startNext);
     $song.addEventListener('playing', currentSongBorder);
-
   }
 });
 xhr.send();
