@@ -19,33 +19,45 @@
 }
 
 .icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
   align-self: center;
   height: 80px;
-  flex-direction: column;
+  margin: 2rem 0 1.5rem;
+}
+
+.justifiedcenter {
+  justify-content: center;
 }
 
 #head {
   justify-content: space-between;
-  align-items: center;
 }
 
-ul > p {
+.category {
   margin: 0;
   text-align: center;
   text-decoration: underline;
 }
 
-.icon p {
+.icon p.whitetext {
   margin: 0;
-  position: relative;
   top: 24px;
 }
 
-.list {
+.column {
+  display: flex;
   flex-direction: column;
+}
+
+.leafsong {
+  justify-content: space-around;
+}
+
+.relative {
+  position: relative;
+}
+
+.centereditems {
+  align-items: center;
 }
 
 @media screen and (min-width: 768px) {
@@ -66,23 +78,6 @@ ul > p {
     position: sticky;
     top: 50%;
   }
-
-  i.fa-cloud-moon-rain {
-    padding: 15px 0;
-  }
-
-  .icon p {
-    position: relative;
-    top: 10px;
-  }
-}
-
-main.container {
-  padding: 1rem 0;
-}
-
-.icon.right {
-  padding: 1.5rem 0 0;
 }
 
 @media screen and (max-width: 600px) {
@@ -91,6 +86,6 @@ main.container {
   }
 }
 
-.leafsong {
-  justify-content: space-around;
+main.container {
+  padding: 1rem 0;
 }

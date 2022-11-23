@@ -14,6 +14,7 @@ xhr.addEventListener('load', function () {
   // console.log('Array of songs:', arrayOfSongs);
   // console.log('Object of songs:', objectOfSongs);
   var timeOfDay = document.createElement('p');
+  timeOfDay.setAttribute('class', 'category');
   timeOfDay.textContent = 'Dawn / Dusk';
   $main.appendChild(timeOfDay);
   for (var i = 0; i < arrayOfSongs.length; i++) {
@@ -21,9 +22,10 @@ xhr.addEventListener('load', function () {
 
     dawndusk.push(arrayOfSongs[i]);
     var $listitem = document.createElement('li');
-    $listitem.setAttribute('class', 'row list');
+    $listitem.setAttribute('class', 'row column');
 
     var $songname = document.createElement('p');
+    $songname.setAttribute('class', 'songtitle');
     var rawtitle = lastChars(8, arrayOfSongs[i]['file-name']);
     var newTitle = lastChars(5, rawtitle) + ' ' + firstChars(2, rawtitle);
     $songname.textContent = newTitle;
@@ -43,6 +45,7 @@ xhr.addEventListener('load', function () {
     // $song.setAttribute('autoplay', '');
     // $song.setAttribute('loop', '');
     $song.setAttribute('name', 'media');
+    $song.setAttribute('class', 'audioplayer');
 
     var $audio = document.createElement('source');
     $audio.setAttribute('src', dawndusk[i].music_uri);
@@ -54,11 +57,22 @@ xhr.addEventListener('load', function () {
     $song.appendChild($audio);
     $song.addEventListener('play', pauseOthers);
     $song.addEventListener('ended', startNext);
+    $song.addEventListener('playing', currentSongBorder);
 
   }
 });
 xhr.send();
 
+function currentSongBorder(event) {
+  var $songs = document.querySelectorAll('audio');
+  for (var i = 0; i < $songs.length; i++) {
+    if ($songs[i] !== event.target) {
+      $songs[i].classList.remove('playing');
+    } else if ($songs[i] === event.target) {
+      $songs[i].classList.add('playing');
+    }
+  }
+}
 function pauseOthers(event) {
   var $songs = document.querySelectorAll('audio');
   for (var i = 0; i < $songs.length; i++) {
