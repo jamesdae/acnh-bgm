@@ -39,7 +39,7 @@
 }
 
 .list {
-  flex-direction: row-reverse;
+  flex-direction: column;
 }
 
 @media screen and (min-width: 768px) {
@@ -77,4 +77,10 @@ main.container {
 
 .icon.right {
   padding: 1.5rem 0 0;
+}
+
+@media screen and (max-width: 600px) {
+  ul {
+    margin: 0 10px;
+  }
 }

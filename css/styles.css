@@ -5,7 +5,7 @@
 
 audio {
   height: 50px;
-  width: 100%;
+  width: calc(100% - 40px);
 }
 
 img {
@@ -14,7 +14,8 @@ img {
 
 li p {
   color: #7a776d;
-  margin: 0 10px 0 0;
+  margin: 0 15px 0 0;
+  align-self: flex-end;
 }
 
 .logo {
@@ -56,6 +57,7 @@ ul {
   justify-content: center;
   gap: 20px;
   padding: 20px 10px;
+  box-shadow: #7a776d;
 }
 
 body {
@@ -64,4 +66,13 @@ body {
 
 i.headnav {
   scale: 1.5;
+}
+
+.leaf {
+  width: 30px;
+  align-self: center;
+}
+
+.leafsong {
+  gap: 10px;
 }
