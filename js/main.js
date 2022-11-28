@@ -1,18 +1,39 @@
 var xhr = new XMLHttpRequest();
 var $main = document.querySelector('ul');
 var arrayOfSongs = [];
-var dawndusk = [];
 
 xhr.open('GET', 'https://acnhapi.com/v1/backgroundmusic');
 xhr.responseType = 'json';
 xhr.addEventListener('load', function () {
   arrayOfSongs = Object.values(xhr.response);
-  var timeOfDay = document.createElement('p');
-  timeOfDay.setAttribute('class', 'category');
-  timeOfDay.textContent = 'Dawn / Dusk';
-  $main.appendChild(timeOfDay);
+  renderSongs(6);
+});
+xhr.send();
+
+function renderSongs(lasthour) {
   for (var i = 0; i < arrayOfSongs.length; i++) {
-    dawndusk.push(arrayOfSongs[i]);
+    var timeOfDay = document.createElement('p');
+    timeOfDay.setAttribute('class', 'category');
+    switch (i) {
+      case 0:
+        timeOfDay.textContent = 'Dawn / Dusk';
+        $main.appendChild(timeOfDay);
+        break;
+      case 18:
+        timeOfDay.textContent = 'Morning';
+        $main.appendChild(timeOfDay);
+        break;
+      case 36:
+        timeOfDay.textContent = 'Afternoon';
+        $main.appendChild(timeOfDay);
+        break;
+      case 54:
+        timeOfDay.textContent = 'Night';
+        $main.appendChild(timeOfDay);
+        break;
+      default:
+        timeOfDay.textContent = 'Weather';
+    }
     var $listitem = document.createElement('li');
     $listitem.setAttribute('class', 'row column');
 
@@ -38,7 +59,7 @@ xhr.addEventListener('load', function () {
     $song.setAttribute('class', 'audioplayer');
 
     var $audio = document.createElement('source');
-    $audio.setAttribute('src', dawndusk[i].music_uri);
+    $audio.setAttribute('src', arrayOfSongs[i].music_uri);
     $audio.setAttribute('type', 'audio/mpeg');
 
     $main.appendChild($listitem);
@@ -49,8 +70,7 @@ xhr.addEventListener('load', function () {
     $song.addEventListener('ended', startNext);
     $song.addEventListener('playing', currentSongBorder);
   }
-});
-xhr.send();
+}
 
 function currentSongBorder(event) {
   var $songs = document.querySelectorAll('audio');
