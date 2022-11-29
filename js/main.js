@@ -2,44 +2,35 @@ var xhr = new XMLHttpRequest();
 var $main = document.querySelector('ul');
 var arrayOfSongs = [];
 
+var rainy = document.createElement('p');
+rainy.setAttribute('class', 'category');
+rainy.textContent = 'Rainy Weather';
+
+var sunny = document.createElement('p');
+sunny.setAttribute('class', 'category');
+sunny.textContent = 'Sunny Weather';
+
+var snowy = document.createElement('p');
+snowy.setAttribute('class', 'category');
+snowy.textContent = 'Snowy Weather';
+
 xhr.open('GET', 'https://acnhapi.com/v1/backgroundmusic');
 xhr.responseType = 'json';
 xhr.addEventListener('load', function () {
   arrayOfSongs = Object.values(xhr.response);
-  renderSongs(6);
+  renderSongs('time');
 });
 xhr.send();
 
-function renderSongs(lasthour) {
+function renderSongs(view) {
   for (var i = 0; i < arrayOfSongs.length; i++) {
-    var timeOfDay = document.createElement('p');
-    timeOfDay.setAttribute('class', 'category');
-    switch (i) {
-      case 0:
-        timeOfDay.textContent = 'Dawn / Dusk';
-        $main.appendChild(timeOfDay);
-        break;
-      case 18:
-        timeOfDay.textContent = 'Morning';
-        $main.appendChild(timeOfDay);
-        break;
-      case 36:
-        timeOfDay.textContent = 'Afternoon';
-        $main.appendChild(timeOfDay);
-        break;
-      case 54:
-        timeOfDay.textContent = 'Night';
-        $main.appendChild(timeOfDay);
-        break;
-      default:
-        timeOfDay.textContent = 'Weather';
-    }
+    const song = arrayOfSongs[i];
     var $listitem = document.createElement('li');
     $listitem.setAttribute('class', 'row column');
 
     var $songname = document.createElement('p');
     $songname.setAttribute('class', 'songtitle');
-    var rawtitle = lastChars(8, arrayOfSongs[i]['file-name']);
+    var rawtitle = lastChars(8, song['file-name']);
     var newTitle = lastChars(5, rawtitle) + ' ' + firstChars(2, rawtitle);
     $songname.textContent = newTitle;
     $listitem.appendChild($songname);
@@ -59,16 +50,64 @@ function renderSongs(lasthour) {
     $song.setAttribute('class', 'audioplayer');
 
     var $audio = document.createElement('source');
-    $audio.setAttribute('src', arrayOfSongs[i].music_uri);
+    $audio.setAttribute('src', song.music_uri);
     $audio.setAttribute('type', 'audio/mpeg');
+    if (view === 'time') {
+      var timeOfDay = document.createElement('p');
+      timeOfDay.setAttribute('class', 'category');
+      switch (i) {
+        case 0:
+          timeOfDay.textContent = 'Dawn / Dusk';
+          $main.appendChild(timeOfDay);
+          break;
+        case 18:
+          timeOfDay.textContent = 'Morning';
+          $main.appendChild(timeOfDay);
+          break;
+        case 36:
+          timeOfDay.textContent = 'Afternoon';
+          $main.appendChild(timeOfDay);
+          break;
+        case 54:
+          timeOfDay.textContent = 'Night';
+          $main.appendChild(timeOfDay);
+          break;
+        default:
+          break;
+      }
+      $main.appendChild($listitem);
+      leafSong.appendChild($song);
+      $listitem.appendChild(leafSong);
+      $song.appendChild($audio);
+      $song.addEventListener('play', pauseOthers);
+      $song.addEventListener('ended', startNext);
+      $song.addEventListener('playing', currentSongBorder);
+    }
+    if (view === 'weather') {
+      $main.appendChild(rainy);
+      $main.appendChild(sunny);
+      $main.appendChild(snowy);
+      switch (song.weather) {
+        case 'Rainy':
 
-    $main.appendChild($listitem);
-    leafSong.appendChild($song);
-    $listitem.appendChild(leafSong);
-    $song.appendChild($audio);
-    $song.addEventListener('play', pauseOthers);
-    $song.addEventListener('ended', startNext);
-    $song.addEventListener('playing', currentSongBorder);
+          rainy.appendChild($listitem);
+          break;
+        case 'Sunny':
+          sunny.appendChild($listitem);
+          break;
+        case 'Snowy':
+          snowy.appendChild($listitem);
+          break;
+        default:
+          break;
+      }
+      leafSong.appendChild($song);
+      $listitem.appendChild(leafSong);
+      $song.appendChild($audio);
+      $song.addEventListener('play', pauseOthers);
+      $song.addEventListener('ended', startNext);
+      $song.addEventListener('playing', currentSongBorder);
+    }
   }
 }
 
@@ -139,3 +178,24 @@ function militaryTo12(newString) {
   }
   return newString;
 }
+
+function removeAllChildNodes(parent) {
+  while (parent.firstChild) {
+    parent.removeChild(parent.firstChild);
+  }
+}
+
+const $clock = document.querySelector('.fa-clock');
+$clock.addEventListener('click', event => {
+  removeAllChildNodes($main);
+  renderSongs('time');
+});
+
+const $cloud = document.querySelector('.fa-cloud-moon-rain');
+$cloud.addEventListener('click', event => {
+  removeAllChildNodes(snowy);
+  removeAllChildNodes(rainy);
+  removeAllChildNodes(sunny);
+  removeAllChildNodes($main);
+  renderSongs('weather');
+});
