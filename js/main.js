@@ -82,8 +82,7 @@ function renderSongs(view) {
       $song.addEventListener('play', pauseOthers);
       $song.addEventListener('ended', startNext);
       $song.addEventListener('playing', currentSongBorder);
-    }
-    if (view === 'weather') {
+    } else if (view === 'weather') {
       $main.appendChild(rainy);
       $main.appendChild(sunny);
       $main.appendChild(snowy);
@@ -184,18 +183,25 @@ function removeAllChildNodes(parent) {
     parent.removeChild(parent.firstChild);
   }
 }
-
 const $clock = document.querySelector('.fa-clock');
-$clock.addEventListener('click', event => {
-  removeAllChildNodes($main);
-  renderSongs('time');
-});
-
 const $cloud = document.querySelector('.fa-cloud-moon-rain');
-$cloud.addEventListener('click', event => {
+
+$clock.addEventListener('click', () => changeViews('time'));
+
+$cloud.addEventListener('click', () => changeViews('weather'));
+
+function changeViews(view) {
+  const $icon = document.querySelector('.icon.left');
+  const $icon2 = document.querySelector('.icon.right');
   removeAllChildNodes(snowy);
   removeAllChildNodes(rainy);
   removeAllChildNodes(sunny);
   removeAllChildNodes($main);
-  renderSongs('weather');
-});
+  removeAllChildNodes($main);
+  const mainicon = $icon.firstElementChild;
+  if (event.target.parentElement.classList.contains('right')) {
+    $icon.replaceChildren(event.target);
+    $icon2.replaceChildren(mainicon);
+  }
+  renderSongs(view);
+}
