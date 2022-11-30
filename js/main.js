@@ -1,18 +1,12 @@
 var xhr = new XMLHttpRequest();
 var $main = document.querySelector('ul');
 var arrayOfSongs = [];
-
 var rainy = document.createElement('p');
-rainy.setAttribute('class', 'category');
-rainy.textContent = 'Rainy Weather';
-
+rainy.setAttribute('class', 'category rainy');
 var sunny = document.createElement('p');
-sunny.setAttribute('class', 'category');
-sunny.textContent = 'Sunny Weather';
-
+sunny.setAttribute('class', 'category sunny');
 var snowy = document.createElement('p');
-snowy.setAttribute('class', 'category');
-snowy.textContent = 'Snowy Weather';
+snowy.setAttribute('class', 'category snowy');
 
 xhr.open('GET', 'https://acnhapi.com/v1/backgroundmusic');
 xhr.responseType = 'json';
@@ -23,6 +17,9 @@ xhr.addEventListener('load', function () {
 xhr.send();
 
 function renderSongs(view) {
+  rainy.textContent = 'Rainy Weather';
+  sunny.textContent = 'Sunny Weather';
+  snowy.textContent = 'Snowy Weather';
   for (var i = 0; i < arrayOfSongs.length; i++) {
     const song = arrayOfSongs[i];
     var $listitem = document.createElement('li');
@@ -88,7 +85,6 @@ function renderSongs(view) {
       $main.appendChild(snowy);
       switch (song.weather) {
         case 'Rainy':
-
           rainy.appendChild($listitem);
           break;
         case 'Sunny':
@@ -178,11 +174,6 @@ function militaryTo12(newString) {
   return newString;
 }
 
-function removeAllChildNodes(parent) {
-  while (parent.firstChild) {
-    parent.removeChild(parent.firstChild);
-  }
-}
 const $clock = document.querySelector('.fa-clock');
 const $cloud = document.querySelector('.fa-cloud-moon-rain');
 
@@ -193,15 +184,15 @@ $cloud.addEventListener('click', () => changeViews('weather'));
 function changeViews(view) {
   const $icon = document.querySelector('.icon.left');
   const $icon2 = document.querySelector('.icon.right');
-  removeAllChildNodes(snowy);
-  removeAllChildNodes(rainy);
-  removeAllChildNodes(sunny);
-  removeAllChildNodes($main);
-  removeAllChildNodes($main);
   const mainicon = $icon.firstElementChild;
+  const mainiconp = $icon.lastElementChild;
   if (event.target.parentElement.classList.contains('right')) {
-    $icon.replaceChildren(event.target);
-    $icon2.replaceChildren(mainicon);
+    $icon.replaceChildren(event.target, event.target.nextElementSibling);
+    $icon2.replaceChildren(mainicon, mainiconp);
   }
+  snowy.replaceChildren();
+  rainy.replaceChildren();
+  sunny.replaceChildren();
+  $main.replaceChildren();
   renderSongs(view);
 }
