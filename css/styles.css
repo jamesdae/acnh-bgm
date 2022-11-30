@@ -25,6 +25,7 @@ body {
 .songtitle {
   margin: 0 45px 0 0;
   align-self: flex-end;
+  text-decoration: none;
 }
 
 .logo {

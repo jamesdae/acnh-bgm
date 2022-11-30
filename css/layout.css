@@ -38,6 +38,12 @@
   text-decoration: underline;
 }
 
+.weather {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
 .icon p.whitetext {
   margin: 0;
   top: 24px;

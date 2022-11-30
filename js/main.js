@@ -1,12 +1,18 @@
 var xhr = new XMLHttpRequest();
 var $main = document.querySelector('ul');
 var arrayOfSongs = [];
-var rainy = document.createElement('p');
-rainy.setAttribute('class', 'category rainy');
-var sunny = document.createElement('p');
-sunny.setAttribute('class', 'category sunny');
-var snowy = document.createElement('p');
-snowy.setAttribute('class', 'category snowy');
+var rainy = document.createElement('div');
+var rainyp = document.createElement('p');
+rainy.setAttribute('class', 'weather');
+rainyp.setAttribute('class', 'category');
+var sunny = document.createElement('div');
+var sunnyp = document.createElement('p');
+sunny.setAttribute('class', 'weather');
+sunnyp.setAttribute('class', 'category');
+var snowy = document.createElement('div');
+var snowyp = document.createElement('p');
+snowy.setAttribute('class', 'weather');
+snowyp.setAttribute('class', 'category');
 
 xhr.open('GET', 'https://acnhapi.com/v1/backgroundmusic');
 xhr.responseType = 'json';
@@ -17,16 +23,19 @@ xhr.addEventListener('load', function () {
 xhr.send();
 
 function renderSongs(view) {
-  rainy.textContent = 'Rainy Weather';
-  sunny.textContent = 'Sunny Weather';
-  snowy.textContent = 'Snowy Weather';
+  rainyp.textContent = 'Rainy Weather';
+  sunnyp.textContent = 'Sunny Weather';
+  snowyp.textContent = 'Snowy Weather';
+  rainy.appendChild(rainyp);
+  sunny.appendChild(sunnyp);
+  snowy.appendChild(snowyp);
   for (var i = 0; i < arrayOfSongs.length; i++) {
     const song = arrayOfSongs[i];
     var $listitem = document.createElement('li');
     $listitem.setAttribute('class', 'row column');
 
     var $songname = document.createElement('p');
-    $songname.setAttribute('class', 'songtitle');
+    $songname.setAttribute('class', 'songtitle list');
     var rawtitle = lastChars(8, song['file-name']);
     var newTitle = lastChars(5, rawtitle) + ' ' + firstChars(2, rawtitle);
     $songname.textContent = newTitle;
