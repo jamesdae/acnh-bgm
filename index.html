@@ -28,7 +28,7 @@
     </div>
   </header>
   <main class="container">
-    <div data-view="home" class="container row home">
+    <div data-view="home" class="container row home hidden">
       <div class="selectrow row column-full justifiedcenter">
         <h1 class="ul-songs select justifiedcenter">Select a Category:</h1>
       </div>
@@ -45,6 +45,7 @@
         </div>
       </div>
     </div>
+
     <div data-view="songs" class="songs row hidden">
       <div class="column-half">
         <div class="icon column left centereditems justifiedcenter">
@@ -63,6 +64,30 @@
       </div>
     </div>
 
+    <div data-view="songs" class="container favorites row">
+      <div class="column-half">
+        <div class="icon column left centereditems justifiedcenter">
+          <i class="fa-solid fa-music bigicon whitetext"></i>
+          <p class="whitetext relative">Favorites</p>
+        </div>
+      </div>
+      <div class="column-half">
+        <ul class="column ul-songs" id="favs">
+          <li class="tempbanner">
+            <p class="category nodecor justifiedcenter">Find your favorite daily background songs!</p>
+            <p class="category nodecor justifiedcenter">Add them here by pressing the leaf.</p>
+          </li>
+        </ul>
+        <div class="hidden icon column left centereditems justifiedcenter">
+          <i class="fa-regular fa-clock bigicon whitetext"></i>
+          <p class="whitetext relative">Time of Day</p>
+        </div>
+        <div class="hidden icon column right centereditems justifiedcenter">
+          <i class="fa-solid fa-cloud-moon-rain bigicon whitetext"></i>
+          <p class="whitetext relative">Weather</p>
+        </div>
+      </div>
+    </div>
   </main>
   <script src="js/data.js"></script>
   <script src="js/main.js"></script>

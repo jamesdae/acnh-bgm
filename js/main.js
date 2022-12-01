@@ -47,7 +47,7 @@ function renderSongs(view) {
     $listitem.setAttribute('class', 'row column');
 
     var $songname = document.createElement('p');
-    $songname.setAttribute('class', 'songtitle list');
+    $songname.setAttribute('class', 'songtitle nodecor');
     var rawtitle = lastChars(8, song['file-name']);
     var newTitle = lastChars(5, rawtitle) + ' ' + firstChars(2, rawtitle);
     $songname.textContent = newTitle;
