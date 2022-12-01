@@ -25,6 +25,7 @@ body {
 .songtitle {
   margin: 0 45px 0 0;
   align-self: flex-end;
+  text-decoration: none;
 }
 
 .logo {
@@ -70,4 +71,8 @@ i.headnav {
 .playing {
   border: 1px solid green;
   border-radius: 20px;
+}
+
+.select {
+  width: 400px;
 }

@@ -1,24 +1,54 @@
 var xhr = new XMLHttpRequest();
 var $main = document.querySelector('ul');
 var arrayOfSongs = [];
-var dawndusk = [];
+const homeview = document.querySelector('.home');
+const songview = document.querySelector('.songs');
+const homeclock = document.getElementById('homeclock');
+const homecloud = document.getElementById('homecloud');
+const $icon = document.querySelector('.icon.left');
+const $icon2 = document.querySelector('.icon.right');
+const $cloud = document.querySelector('.fa-cloud-moon-rain');
+const $clock = document.querySelector('.fa-clock');
+const $cloudp = $cloud.nextElementSibling;
+const $clockp = $clock.nextElementSibling;
+const $mainlogo = document.querySelector('.mainlogo');
+
+var rainy = document.createElement('div');
+var rainyp = document.createElement('p');
+rainy.setAttribute('class', 'weather');
+rainyp.setAttribute('class', 'category');
+var sunny = document.createElement('div');
+var sunnyp = document.createElement('p');
+sunny.setAttribute('class', 'weather');
+sunnyp.setAttribute('class', 'category');
+var snowy = document.createElement('div');
+var snowyp = document.createElement('p');
+snowy.setAttribute('class', 'weather');
+snowyp.setAttribute('class', 'category');
 
 xhr.open('GET', 'https://acnhapi.com/v1/backgroundmusic');
 xhr.responseType = 'json';
 xhr.addEventListener('load', function () {
   arrayOfSongs = Object.values(xhr.response);
-  var timeOfDay = document.createElement('p');
-  timeOfDay.setAttribute('class', 'category');
-  timeOfDay.textContent = 'Dawn / Dusk';
-  $main.appendChild(timeOfDay);
+  renderSongs('time');
+});
+xhr.send();
+
+function renderSongs(view) {
+  rainyp.textContent = 'Rainy Weather';
+  sunnyp.textContent = 'Sunny Weather';
+  snowyp.textContent = 'Snowy Weather';
+  rainy.appendChild(rainyp);
+  sunny.appendChild(sunnyp);
+  snowy.appendChild(snowyp);
   for (var i = 0; i < arrayOfSongs.length; i++) {
-    dawndusk.push(arrayOfSongs[i]);
+    const song = arrayOfSongs[i];
     var $listitem = document.createElement('li');
     $listitem.setAttribute('class', 'row column');
 
     var $songname = document.createElement('p');
-    $songname.setAttribute('class', 'songtitle');
-    var rawtitle = lastChars(8, arrayOfSongs[i]['file-name']);
+    $songname.setAttribute('class', 'songtitle list');
+    var rawtitle = lastChars(8, song['file-name']);
     var newTitle = lastChars(5, rawtitle) + ' ' + firstChars(2, rawtitle);
     $songname.textContent = newTitle;
     $listitem.appendChild($songname);
@@ -38,10 +68,51 @@ xhr.addEventListener('load', function () {
     $song.setAttribute('class', 'audioplayer');
 
     var $audio = document.createElement('source');
-    $audio.setAttribute('src', dawndusk[i].music_uri);
+    $audio.setAttribute('src', song.music_uri);
     $audio.setAttribute('type', 'audio/mpeg');
 
-    $main.appendChild($listitem);
+    if (view === 'time') {
+      var timeOfDay = document.createElement('p');
+      timeOfDay.setAttribute('class', 'category');
+      switch (i) {
+        case 0:
+          timeOfDay.textContent = 'Dawn / Dusk';
+          $main.appendChild(timeOfDay);
+          break;
+        case 18:
+          timeOfDay.textContent = 'Morning';
+          $main.appendChild(timeOfDay);
+          break;
+        case 36:
+          timeOfDay.textContent = 'Afternoon';
+          $main.appendChild(timeOfDay);
+          break;
+        case 54:
+          timeOfDay.textContent = 'Night';
+          $main.appendChild(timeOfDay);
+          break;
+        default:
+          break;
+      }
+      $main.appendChild($listitem);
+    } else if (view === 'weather') {
+      $main.appendChild(rainy);
+      $main.appendChild(sunny);
+      $main.appendChild(snowy);
+      switch (song.weather) {
+        case 'Rainy':
+          rainy.appendChild($listitem);
+          break;
+        case 'Sunny':
+          sunny.appendChild($listitem);
+          break;
+        case 'Snowy':
+          snowy.appendChild($listitem);
+          break;
+        default:
+          break;
+      }
+    }
     leafSong.appendChild($song);
     $listitem.appendChild(leafSong);
     $song.appendChild($audio);
@@ -49,8 +120,7 @@ xhr.addEventListener('load', function () {
     $song.addEventListener('ended', startNext);
     $song.addEventListener('playing', currentSongBorder);
   }
-});
-xhr.send();
+}
 
 function currentSongBorder(event) {
   var $songs = document.querySelectorAll('audio');
@@ -62,6 +132,7 @@ function currentSongBorder(event) {
     }
   }
 }
+
 function pauseOthers(event) {
   var $songs = document.querySelectorAll('audio');
   for (var i = 0; i < $songs.length; i++) {
@@ -119,3 +190,55 @@ function militaryTo12(newString) {
   }
   return newString;
 }
+
+function changeSongs(view) {
+  $icon.replaceChildren(event.target, event.target.nextElementSibling);
+  if (event.target === $clock) {
+    $icon2.replaceChildren($cloud, $cloudp);
+  } else if (event.target === $cloud) {
+    $icon2.replaceChildren($clock, $clockp);
+  }
+  snowy.replaceChildren();
+  rainy.replaceChildren();
+  sunny.replaceChildren();
+  $main.replaceChildren();
+  renderSongs(view);
+}
+
+function changeViews(current) {
+  let hiddenview;
+  let otherview;
+  if (homeview.classList.contains('hidden') || current === 'home') {
+    hiddenview = homeview;
+    otherview = songview;
+    homeclock.replaceChildren($clock, $clock.nextElementSibling);
+    homecloud.replaceChildren($cloud, $cloud.nextElementSibling);
+  } else if (songview.classList.contains('hidden')) {
+    hiddenview = songview;
+    otherview = homeview;
+  }
+  hiddenview.classList.remove('hidden');
+  otherview.classList.add('hidden');
+}
+
+$mainlogo.addEventListener('click', () => changeViews('home'));
+
+window.addEventListener('click', () => {
+  if (event.target.classList.contains('fa-clock')) {
+    changeSongs('time');
+    if (songview.classList.contains('hidden')) {
+      changeViews();
+    }
+    window.scrollTo(0, 0);
+  }
+});
+
+window.addEventListener('click', () => {
+  if (event.target.classList.contains('fa-cloud-moon-rain')) {
+    changeSongs('weather');
+    if (songview.classList.contains('hidden')) {
+      changeViews();
+    }
+    window.scrollTo(0, 0);
+  }
+});

@@ -33,9 +33,16 @@
 }
 
 .category {
-  margin: 0;
+  margin: 10 0 0;
   text-align: center;
   text-decoration: underline;
+  scale: 1.5;
+}
+
+.weather {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
 }
 
 .icon p.whitetext {
@@ -88,4 +95,8 @@
 
 main.container {
   padding: 1rem 0;
+}
+
+.home {
+  width: 400px;
 }
