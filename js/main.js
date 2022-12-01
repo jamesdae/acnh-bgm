@@ -1,6 +1,18 @@
 var xhr = new XMLHttpRequest();
 var $main = document.querySelector('ul');
 var arrayOfSongs = [];
+const homeview = document.querySelector('.home');
+const songview = document.querySelector('.songs');
+const homeclock = document.getElementById('homeclock');
+const homecloud = document.getElementById('homecloud');
+const $icon = document.querySelector('.icon.left');
+const $icon2 = document.querySelector('.icon.right');
+const $cloud = document.querySelector('.fa-cloud-moon-rain');
+const $clock = document.querySelector('.fa-clock');
+const $cloudp = $cloud.nextElementSibling;
+const $clockp = $clock.nextElementSibling;
+const $mainlogo = document.querySelector('.mainlogo');
+
 var rainy = document.createElement('div');
 var rainyp = document.createElement('p');
 rainy.setAttribute('class', 'weather');
@@ -58,6 +70,7 @@ function renderSongs(view) {
     var $audio = document.createElement('source');
     $audio.setAttribute('src', song.music_uri);
     $audio.setAttribute('type', 'audio/mpeg');
+
     if (view === 'time') {
       var timeOfDay = document.createElement('p');
       timeOfDay.setAttribute('class', 'category');
@@ -82,12 +95,6 @@ function renderSongs(view) {
           break;
       }
       $main.appendChild($listitem);
-      leafSong.appendChild($song);
-      $listitem.appendChild(leafSong);
-      $song.appendChild($audio);
-      $song.addEventListener('play', pauseOthers);
-      $song.addEventListener('ended', startNext);
-      $song.addEventListener('playing', currentSongBorder);
     } else if (view === 'weather') {
       $main.appendChild(rainy);
       $main.appendChild(sunny);
@@ -105,13 +112,13 @@ function renderSongs(view) {
         default:
           break;
       }
-      leafSong.appendChild($song);
-      $listitem.appendChild(leafSong);
-      $song.appendChild($audio);
-      $song.addEventListener('play', pauseOthers);
-      $song.addEventListener('ended', startNext);
-      $song.addEventListener('playing', currentSongBorder);
     }
+    leafSong.appendChild($song);
+    $listitem.appendChild(leafSong);
+    $song.appendChild($audio);
+    $song.addEventListener('play', pauseOthers);
+    $song.addEventListener('ended', startNext);
+    $song.addEventListener('playing', currentSongBorder);
   }
 }
 
@@ -125,6 +132,7 @@ function currentSongBorder(event) {
     }
   }
 }
+
 function pauseOthers(event) {
   var $songs = document.querySelectorAll('audio');
   for (var i = 0; i < $songs.length; i++) {
@@ -183,21 +191,12 @@ function militaryTo12(newString) {
   return newString;
 }
 
-const $clock = document.querySelector('.fa-clock');
-const $cloud = document.querySelector('.fa-cloud-moon-rain');
-
-$clock.addEventListener('click', () => changeViews('time'));
-
-$cloud.addEventListener('click', () => changeViews('weather'));
-
-function changeViews(view) {
-  const $icon = document.querySelector('.icon.left');
-  const $icon2 = document.querySelector('.icon.right');
-  const mainicon = $icon.firstElementChild;
-  const mainiconp = $icon.lastElementChild;
-  if (event.target.parentElement.classList.contains('right')) {
-    $icon.replaceChildren(event.target, event.target.nextElementSibling);
-    $icon2.replaceChildren(mainicon, mainiconp);
+function changeSongs(view) {
+  $icon.replaceChildren(event.target, event.target.nextElementSibling);
+  if (event.target === $clock) {
+    $icon2.replaceChildren($cloud, $cloudp);
+  } else if (event.target === $cloud) {
+    $icon2.replaceChildren($clock, $clockp);
   }
   snowy.replaceChildren();
   rainy.replaceChildren();
@@ -205,3 +204,41 @@ function changeViews(view) {
   $main.replaceChildren();
   renderSongs(view);
 }
+
+function changeViews(current) {
+  let hiddenview;
+  let otherview;
+  if (homeview.classList.contains('hidden') || current === 'home') {
+    hiddenview = homeview;
+    otherview = songview;
+    homeclock.replaceChildren($clock, $clock.nextElementSibling);
+    homecloud.replaceChildren($cloud, $cloud.nextElementSibling);
+  } else if (songview.classList.contains('hidden')) {
+    hiddenview = songview;
+    otherview = homeview;
+  }
+  hiddenview.classList.remove('hidden');
+  otherview.classList.add('hidden');
+}
+
+$mainlogo.addEventListener('click', () => changeViews('home'));
+
+window.addEventListener('click', () => {
+  if (event.target.classList.contains('fa-clock')) {
+    changeSongs('time');
+    if (songview.classList.contains('hidden')) {
+      changeViews();
+    }
+    window.scrollTo(0, 0);
+  }
+});
+
+window.addEventListener('click', () => {
+  if (event.target.classList.contains('fa-cloud-moon-rain')) {
+    changeSongs('weather');
+    if (songview.classList.contains('hidden')) {
+      changeViews();
+    }
+    window.scrollTo(0, 0);
+  }
+});

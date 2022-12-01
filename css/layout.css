@@ -33,9 +33,10 @@
 }
 
 .category {
-  margin: 0;
+  margin: 10 0 0;
   text-align: center;
   text-decoration: underline;
+  scale: 1.5;
 }
 
 .weather {
@@ -94,4 +95,8 @@
 
 main.container {
   padding: 1rem 0;
+}
+
+.home {
+  width: 400px;
 }
