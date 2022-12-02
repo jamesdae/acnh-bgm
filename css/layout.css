@@ -28,7 +28,7 @@
   justify-content: center;
 }
 
-#head {
+.spacebetween {
   justify-content: space-between;
 }
 
@@ -55,7 +55,7 @@
   flex-direction: column;
 }
 
-.leafsong {
+.spacearound {
   justify-content: space-around;
 }
 
@@ -85,6 +85,13 @@
     position: sticky;
     top: 50%;
   }
+
+  .tempflex {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 400px;
+  }
 }
 
 @media screen and (max-width: 600px) {
@@ -99,4 +106,9 @@ main.container {
 
 .home {
   width: 400px;
+}
+
+.favorites {
+  width: 100%;
+  max-height: 100%;
 }

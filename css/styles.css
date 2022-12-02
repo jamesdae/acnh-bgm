@@ -2,7 +2,7 @@
   font-family: Gurajada, serif;
 }
 
-header {
+#header {
   background-color: #35761e;
   position: sticky;
   top: 0;
@@ -25,7 +25,6 @@ body {
 .songtitle {
   margin: 0 45px 0 0;
   align-self: flex-end;
-  text-decoration: none;
 }
 
 .logo {
@@ -45,6 +44,10 @@ body {
   scale: 4.4;
 }
 
+.smallicon {
+  scale: 0.6;
+}
+
 .ul-songs {
   background-color: #f3eeda;
   border-radius: 20px;
@@ -53,6 +56,7 @@ body {
   padding: 20px 10px;
   box-shadow: 2px 2px 5px #7a776d;
   color: #7a776d;
+  list-style: none;
 }
 
 i.headnav {
@@ -75,4 +79,59 @@ i.headnav {
 
 .select {
   width: 400px;
+}
+
+.nodecor {
+  text-decoration: none;
+}
+
+.icon,
+.logo,
+.leaf,
+.headnav {
+  transition: all 1s ease-out;
+}
+
+.icon:hover,
+.logo:hover,
+.leaf:hover,
+.headnav:hover {
+  cursor: pointer;
+  transform: scale(1.1);
+}
+
+.currentlyplaying {
+  animation: wiggle 4s linear infinite;
+}
+
+@keyframes wiggle {
+  0%,
+  7% {
+    transform: rotateZ(0);
+  }
+
+  15% {
+    transform: rotateZ(-15deg);
+  }
+
+  20% {
+    transform: rotateZ(10deg);
+  }
+
+  25% {
+    transform: rotateZ(-10deg);
+  }
+
+  30% {
+    transform: rotateZ(6deg);
+  }
+
+  35% {
+    transform: rotateZ(-4deg);
+  }
+
+  40%,
+  100% {
+    transform: rotateZ(0);
+  }
 }
