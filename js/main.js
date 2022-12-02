@@ -15,6 +15,7 @@ const $cloudp = $cloud.nextElementSibling;
 const $clockp = $clock.nextElementSibling;
 const $mainlogo = document.querySelector('.mainlogo');
 const headnav = document.querySelector('.headnav');
+const ulplaylist = document.getElementById('favs');
 
 var rainy = document.createElement('div');
 var rainyp = document.createElement('p');
@@ -57,7 +58,7 @@ function renderSongs(view) {
     $listitem.appendChild($songname);
 
     var leafSong = document.createElement('div');
-    leafSong.setAttribute('class', 'leafsong row');
+    leafSong.setAttribute('class', 'spacearound row');
 
     var leaf = document.createElement('img');
     leaf.setAttribute('src', 'images/leaf.png');
@@ -122,6 +123,7 @@ function renderSongs(view) {
     $song.addEventListener('play', pauseOthers);
     $song.addEventListener('ended', startNext);
     $song.addEventListener('playing', currentSongBorder);
+    $song.addEventListener('pause', () => headnav.classList.remove('currentlyplaying'));
   }
 }
 
@@ -154,6 +156,8 @@ function startNext(event) {
   var $songs = document.querySelectorAll('audio');
   for (var i = 0; i < $songs.length; i++) {
     if (!$songs[i + 1]) {
+      $songs[i].classList.remove('playing');
+      headnav.classList.remove('currentlyplaying');
       return;
     } else if ($songs[i] === event.target) {
       $songs[i + 1].currentTime = 0;
@@ -272,8 +276,6 @@ window.addEventListener('click', () => {
   }
 });
 
-const ulplaylist = document.getElementById('favs');
-
 window.addEventListener('click', () => {
   const favoritesancestor = event.target.closest('.container');
   if (event.target.classList.contains('leaf') && !favoritesancestor.classList.contains('favorites')) {
@@ -289,6 +291,7 @@ window.addEventListener('click', () => {
     favclone.lastElementChild.lastElementChild.addEventListener('play', pauseOthers);
     favclone.lastElementChild.lastElementChild.addEventListener('ended', startNext);
     favclone.lastElementChild.lastElementChild.addEventListener('playing', currentSongBorder);
+    favclone.lastElementChild.lastElementChild.addEventListener('pause', () => headnav.classList.remove('currentlyplaying'));
     favclone.lastElementChild.appendChild(shifticons);
     if (ulplaylist.firstElementChild.classList.contains('tempbanner')) {
       ulplaylist.replaceChild(favclone, ulplaylist.firstElementChild);
