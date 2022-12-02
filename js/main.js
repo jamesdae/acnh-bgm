@@ -260,3 +260,17 @@ window.addEventListener('click', () => {
     changeViews('favorites');
   }
 });
+
+const ulplaylist = document.getElementById('favs');
+
+window.addEventListener('click', () => {
+  const favoritesancestor = event.target.parentElement.parentElement.parentElement.parentElement.parentElement;
+  if (event.target.classList.contains('leaf') && !favoritesancestor.classList.contains('favorites')) {
+    const favclone = event.target.parentElement.parentElement.cloneNode(true);
+    if (ulplaylist.firstElementChild.classList.contains('tempbanner')) {
+      ulplaylist.replaceChild(favclone, ulplaylist.firstElementChild);
+    } else {
+      ulplaylist.appendChild(favclone);
+    }
+  }
+});
