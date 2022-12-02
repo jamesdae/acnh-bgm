@@ -150,6 +150,7 @@ function startNext(event) {
     if (!$songs[i + 1]) {
       return;
     } else if ($songs[i] === event.target) {
+      $songs[i + 1].currentTime = 0;
       $songs[i + 1].play();
     }
   }
