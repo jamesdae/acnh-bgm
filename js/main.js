@@ -1,8 +1,10 @@
 var xhr = new XMLHttpRequest();
 var $main = document.querySelector('ul');
+const maincontainer = document.querySelector('main.container');
 var arrayOfSongs = [];
 const homeview = document.querySelector('.home');
 const songview = document.querySelector('.songs');
+const favsview = document.querySelector('.favorites');
 const homeclock = document.getElementById('homeclock');
 const homecloud = document.getElementById('homecloud');
 const $icon = document.querySelector('.icon.left');
@@ -207,18 +209,28 @@ function changeSongs(view) {
 
 function changeViews(current) {
   let hiddenview;
+  let otherview2;
   let otherview;
-  if (homeview.classList.contains('hidden') || current === 'home') {
+  maincontainer.classList.remove('tempflex');
+  if (current === 'favorites') {
+    maincontainer.classList.add('tempflex');
+    hiddenview = favsview;
+    otherview = homeview;
+    otherview2 = songview;
+  } else if (homeview.classList.contains('hidden') || current === 'home') {
     hiddenview = homeview;
+    otherview2 = favsview;
     otherview = songview;
     homeclock.replaceChildren($clock, $clock.nextElementSibling);
     homecloud.replaceChildren($cloud, $cloud.nextElementSibling);
   } else if (songview.classList.contains('hidden')) {
     hiddenview = songview;
     otherview = homeview;
+    otherview2 = favsview;
   }
   hiddenview.classList.remove('hidden');
   otherview.classList.add('hidden');
+  otherview2.classList.add('hidden');
 }
 
 $mainlogo.addEventListener('click', () => changeViews('home'));
@@ -240,5 +252,11 @@ window.addEventListener('click', () => {
       changeViews();
     }
     window.scrollTo(0, 0);
+  }
+});
+
+window.addEventListener('click', () => {
+  if (event.target.classList.contains('fa-music')) {
+    changeViews('favorites');
   }
 });
