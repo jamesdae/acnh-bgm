@@ -14,6 +14,7 @@ const $clock = document.querySelector('.fa-clock');
 const $cloudp = $cloud.nextElementSibling;
 const $clockp = $clock.nextElementSibling;
 const $mainlogo = document.querySelector('.mainlogo');
+const headnav = document.querySelector('.headnav');
 
 var rainy = document.createElement('div');
 var rainyp = document.createElement('p');
@@ -132,6 +133,11 @@ function currentSongBorder(event) {
     } else if ($songs[i] === event.target) {
       $songs[i].classList.add('playing');
     }
+  }
+  if (event.target.closest('.container').classList.contains('favorites')) {
+    headnav.classList.add('currentlyplaying');
+  } else {
+    headnav.classList.remove('currentlyplaying');
   }
 }
 
@@ -269,12 +275,21 @@ window.addEventListener('click', () => {
 const ulplaylist = document.getElementById('favs');
 
 window.addEventListener('click', () => {
-  const favoritesancestor = event.target.parentElement.parentElement.parentElement.parentElement.parentElement;
+  const favoritesancestor = event.target.closest('.container');
   if (event.target.classList.contains('leaf') && !favoritesancestor.classList.contains('favorites')) {
     const favclone = event.target.parentElement.parentElement.cloneNode(true);
+    const up = document.createElement('i');
+    const down = document.createElement('i');
+    const shifticons = document.createElement('div');
+    shifticons.setAttribute('class', 'column justifiedcenter');
+    up.setAttribute('class', 'fa-solid fa-chevron-up smallicon');
+    down.setAttribute('class', 'fa-solid fa-chevron-down smallicon');
+    shifticons.appendChild(up);
+    shifticons.appendChild(down);
     favclone.lastElementChild.lastElementChild.addEventListener('play', pauseOthers);
     favclone.lastElementChild.lastElementChild.addEventListener('ended', startNext);
     favclone.lastElementChild.lastElementChild.addEventListener('playing', currentSongBorder);
+    favclone.lastElementChild.appendChild(shifticons);
     if (ulplaylist.firstElementChild.classList.contains('tempbanner')) {
       ulplaylist.replaceChild(favclone, ulplaylist.firstElementChild);
     } else {
