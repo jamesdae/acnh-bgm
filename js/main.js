@@ -375,3 +375,13 @@ $main.addEventListener('mouseout', event => {
     event.target.setAttribute('src', 'images/leaf.png');
   }
 });
+
+ulplaylist.addEventListener('click', event => {
+  const tomove = event.target.closest('li');
+  if (event.target.classList.contains('fa-chevron-up') && (tomove.previousElementSibling)) {
+    ulplaylist.insertBefore(tomove, tomove.previousElementSibling);
+  }
+  if (event.target.classList.contains('fa-chevron-down') && (tomove.nextElementSibling)) {
+    ulplaylist.insertBefore(tomove, tomove.nextElementSibling.nextElementSibling);
+  }
+});
