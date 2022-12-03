@@ -3,7 +3,6 @@
 }
 
 #header {
-  background-color: #35761e;
   position: sticky;
   top: 0;
   z-index: 10;
@@ -59,7 +58,7 @@ body {
   list-style: none;
 }
 
-i.headnav {
+.slightlybig {
   scale: 1.5;
 }
 
@@ -93,11 +92,44 @@ i.headnav {
 }
 
 .icon:hover,
-.logo:hover,
 .leaf:hover,
 .headnav:hover {
-  cursor: pointer;
   transform: scale(1.1);
+}
+
+.icon:hover,
+.leaf:hover,
+.headnav:hover,
+.logo:hover,
+button:hover {
+  cursor: pointer;
+}
+
+.greenback {
+  background-color: #35761e;
+}
+
+.salmon {
+  background-color: #f87272;
+}
+
+.popup {
+  height: 125px;
+  background-color: white;
+  border-radius: 5px;
+  font-weight: bolder;
+  max-width: 90%;
+}
+
+.cancelp {
+  margin: 15px 0 0;
+}
+
+.modalbutton {
+  width: 80px;
+  height: 30px;
+  border-radius: 4px;
+  border-style: none;
 }
 
 .currentlyplaying {
