@@ -19,16 +19,16 @@ const ulplaylist = document.getElementById('favs');
 
 var rainy = document.createElement('div');
 var rainyp = document.createElement('p');
-rainy.setAttribute('class', 'weather');
-rainyp.setAttribute('class', 'category');
+rainy.setAttribute('class', 'weather column');
+rainyp.setAttribute('class', 'category textalign');
 var sunny = document.createElement('div');
 var sunnyp = document.createElement('p');
-sunny.setAttribute('class', 'weather');
-sunnyp.setAttribute('class', 'category');
+sunny.setAttribute('class', 'weather column');
+sunnyp.setAttribute('class', 'category textalign');
 var snowy = document.createElement('div');
 var snowyp = document.createElement('p');
-snowy.setAttribute('class', 'weather');
-snowyp.setAttribute('class', 'category');
+snowy.setAttribute('class', 'weather column');
+snowyp.setAttribute('class', 'category textalign');
 
 xhr.open('GET', 'https://acnhapi.com/v1/backgroundmusic');
 xhr.responseType = 'json';
@@ -49,35 +49,30 @@ function renderSongs(view) {
     const song = arrayOfSongs[i];
     var $listitem = document.createElement('li');
     $listitem.setAttribute('class', 'row column');
-
     var $songname = document.createElement('p');
     $songname.setAttribute('class', 'songtitle nodecor');
     var rawtitle = lastChars(8, song['file-name']);
     var newTitle = lastChars(5, rawtitle) + ' ' + firstChars(2, rawtitle);
     $songname.textContent = newTitle;
     $listitem.appendChild($songname);
-
     var leafSong = document.createElement('div');
     leafSong.setAttribute('class', 'spacearound row');
-
     var leaf = document.createElement('img');
     leaf.setAttribute('src', 'images/leaf.png');
     leaf.setAttribute('alt', 'leaf icon');
     leaf.setAttribute('class', 'leaf');
     leafSong.appendChild(leaf);
-
     var $song = document.createElement('audio');
     $song.setAttribute('controls', '');
     $song.setAttribute('name', 'media');
     $song.setAttribute('class', 'audioplayer');
-
     var $audio = document.createElement('source');
     $audio.setAttribute('src', song.music_uri);
     $audio.setAttribute('type', 'audio/mpeg');
 
     if (view === 'time') {
       var timeOfDay = document.createElement('p');
-      timeOfDay.setAttribute('class', 'category');
+      timeOfDay.setAttribute('class', 'category textalign');
       switch (i) {
         case 0:
           timeOfDay.textContent = 'Dawn / Dusk';
@@ -120,26 +115,26 @@ function renderSongs(view) {
     leafSong.appendChild($song);
     $listitem.appendChild(leafSong);
     $song.appendChild($audio);
-    $song.addEventListener('play', pauseOthers);
+    $song.addEventListener('play', () => {
+      pauseOthers(event);
+      headnav.classList.remove('currentlyplaying');
+    });
     $song.addEventListener('ended', startNext);
     $song.addEventListener('playing', currentSongBorder);
-    $song.addEventListener('pause', () => headnav.classList.remove('currentlyplaying'));
   }
 }
 
 function currentSongBorder(event) {
   var $songs = document.querySelectorAll('audio');
+  if (event.target.closest('.container').classList.contains('favorites')) {
+    headnav.classList.add('currentlyplaying');
+  }
   for (var i = 0; i < $songs.length; i++) {
     if ($songs[i] !== event.target) {
       $songs[i].classList.remove('playing');
     } else if ($songs[i] === event.target) {
       $songs[i].classList.add('playing');
     }
-  }
-  if (event.target.closest('.container').classList.contains('favorites')) {
-    headnav.classList.add('currentlyplaying');
-  } else {
-    headnav.classList.remove('currentlyplaying');
   }
 }
 
@@ -223,7 +218,7 @@ function changeViews(current) {
   let otherview2;
   let otherview;
   maincontainer.classList.remove('tempflex');
-  if (current === 'favorites' && ulplaylist.firstElementChild.classList.contains('tempbanner')) {
+  if (current === 'favorites' && !ulplaylist.firstElementChild.classList.contains('hidden')) {
     maincontainer.classList.add('tempflex');
     hiddenview = favsview;
     otherview = homeview;
@@ -276,9 +271,10 @@ window.addEventListener('click', () => {
   }
 });
 
-window.addEventListener('click', () => {
+maincontainer.addEventListener('click', () => {
   const favoritesancestor = event.target.closest('.container');
   if (event.target.classList.contains('leaf') && !favoritesancestor.classList.contains('favorites')) {
+    event.target.setAttribute('src', 'images/leaf.png');
     const favclone = event.target.parentElement.parentElement.cloneNode(true);
     const up = document.createElement('i');
     const down = document.createElement('i');
@@ -288,15 +284,94 @@ window.addEventListener('click', () => {
     down.setAttribute('class', 'fa-solid fa-chevron-down smallicon');
     shifticons.appendChild(up);
     shifticons.appendChild(down);
-    favclone.lastElementChild.lastElementChild.addEventListener('play', pauseOthers);
+    favclone.lastElementChild.lastElementChild.addEventListener('pause', () => {
+      if (event.target.classList.contains('playing')) {
+        headnav.classList.remove('currentlyplaying');
+      }
+    });
+    favclone.lastElementChild.lastElementChild.addEventListener('play', function () {
+      if (event.target.closest('.container').classList.contains('favorites')) {
+        headnav.classList.add('currentlyplaying');
+      }
+      pauseOthers(event);
+    });
     favclone.lastElementChild.lastElementChild.addEventListener('ended', startNext);
     favclone.lastElementChild.lastElementChild.addEventListener('playing', currentSongBorder);
-    favclone.lastElementChild.lastElementChild.addEventListener('pause', () => headnav.classList.remove('currentlyplaying'));
     favclone.lastElementChild.appendChild(shifticons);
     if (ulplaylist.firstElementChild.classList.contains('tempbanner')) {
-      ulplaylist.replaceChild(favclone, ulplaylist.firstElementChild);
+      ulplaylist.firstElementChild.classList.add('hidden');
+      ulplaylist.appendChild(favclone);
     } else {
       ulplaylist.appendChild(favclone);
     }
+  } else if (event.target.classList.contains('leaf') && favoritesancestor.classList.contains('favorites')) {
+    event.target.addEventListener('click', () => {
+      const forListElement = event.target.closest('li');
+      var $deleteModal = document.createElement('div');
+      $deleteModal.setAttribute('class', 'modal row justifiedcenter centereditems column-full');
+      var $popUp = document.createElement('div');
+      $popUp.setAttribute('class', 'popup centereditems spacearound column-half row');
+      $deleteModal.appendChild($popUp);
+      var $modaltext = document.createElement('div');
+      $modaltext.setAttribute('class', 'modaltext column-full');
+      $popUp.appendChild($modaltext);
+      var $deleteText = document.createElement('p');
+      $deleteText.innerText = 'Are you sure you want to delete this song?';
+      $deleteText.setAttribute('class', 'cancelp slightlybig textalign');
+      $modaltext.appendChild($deleteText);
+      var $cancelButton = document.createElement('button');
+      $cancelButton.setAttribute('class', 'greenback modalbutton whitetext');
+      $cancelButton.innerText = 'KEEP';
+      $popUp.appendChild($cancelButton);
+      var $confirmButton = document.createElement('button');
+      $confirmButton.setAttribute('class', 'salmon whitetext modalbutton');
+      $confirmButton.innerText = 'DELETE';
+      $popUp.appendChild($confirmButton);
+      favsview.appendChild($deleteModal);
+      document.querySelector('body').style.overflow = 'hidden';
+
+      $cancelButton.addEventListener('click', removeModal);
+
+      $confirmButton.addEventListener('click', () => {
+        ulplaylist.removeChild(forListElement);
+        removeModal();
+        if (ulplaylist.childElementCount < 2) {
+          ulplaylist.firstElementChild.classList.remove('hidden');
+        }
+      });
+    });
+  }
+});
+
+function removeModal() {
+  const allmodals = document.querySelectorAll('.modal');
+  for (let i = 0; i < allmodals.length; i++) {
+    favsview.removeChild(allmodals[i]);
+  }
+  document.querySelector('body').style.overflow = 'visible';
+}
+
+ulplaylist.addEventListener('mouseover', event => {
+  if (event.target.classList.contains('leaf')) {
+    event.target.setAttribute('src', 'images/deletex.png');
+  }
+});
+
+ulplaylist.addEventListener('mouseout', event => {
+  if (event.target.classList.contains('leaf')) {
+    event.target.setAttribute('src', 'images/leaf.png');
+  }
+
+});
+
+$main.addEventListener('mouseover', event => {
+  if (event.target.classList.contains('leaf')) {
+    event.target.setAttribute('src', 'images/add.png');
+  }
+});
+
+$main.addEventListener('mouseout', event => {
+  if (event.target.classList.contains('leaf')) {
+    event.target.setAttribute('src', 'images/leaf.png');
   }
 });
