@@ -385,22 +385,23 @@ $main.addEventListener('mouseout', event => {
 
 ulplaylist.addEventListener('click', event => {
   const tomove = event.target.closest('li');
+  const favlist = ulplaylist.querySelectorAll('li');
   if (event.target.classList.contains('fa-chevron-up') && (tomove.previousElementSibling.previousElementSibling)) {
-    for (let i = 0; i < data.entries.length; i++) {
-      if (tomove.querySelector('source').getAttribute('src') === data.entries[i].src) {
-        const tempid = data.entries[i];
-        data.entries[i] = data.entries[i - 1];
-        data.entries[i - 1] = tempid;
+    for (let i = 0; i < favlist.length; i++) {
+      if (favlist[i] === tomove) {
+        const tempid = data.entries[i - 1];
+        data.entries[i - 1] = data.entries[i - 2];
+        data.entries[i - 2] = tempid;
       }
     }
     ulplaylist.insertBefore(tomove, tomove.previousElementSibling);
   }
   if (event.target.classList.contains('fa-chevron-down') && (tomove.nextElementSibling)) {
-    for (let i = data.entries.length - 1; i >= 0; i--) {
-      if (tomove.querySelector('source').getAttribute('src') === data.entries[i].src) {
-        const tempid = data.entries[i];
-        data.entries[i] = data.entries[i + 1];
-        data.entries[i + 1] = tempid;
+    for (let i = 0; i < favlist.length; i++) {
+      if (favlist[i] === tomove) {
+        const tempid = data.entries[i - 1];
+        data.entries[i - 1] = data.entries[i];
+        data.entries[i] = tempid;
       }
     }
     ulplaylist.insertBefore(tomove, tomove.nextElementSibling.nextElementSibling);
