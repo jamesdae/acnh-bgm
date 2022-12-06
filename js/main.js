@@ -267,7 +267,6 @@ window.addEventListener('click', () => {
   }
 });
 
-let count = 0;
 maincontainer.addEventListener('click', () => {
   const favoritesancestor = event.target.closest('.container');
   if (event.target.classList.contains('leaf') && !favoritesancestor.classList.contains('favorites')) {
@@ -291,10 +290,8 @@ maincontainer.addEventListener('click', () => {
 
     const newObj = {
       title: favclone.firstElementChild.textContent,
-      src: favclone.querySelector('source').getAttribute('src'),
-      songid: count
+      src: favclone.querySelector('source').getAttribute('src')
     };
-    count++;
     if (ulplaylist.firstElementChild.classList.contains('tempbanner')) {
       ulplaylist.firstElementChild.classList.add('hidden');
       data.entries.push(newObj);
