@@ -14,6 +14,7 @@ const $icon = document.querySelector('.icon.left');
 const $icon2 = document.querySelector('.icon.right');
 const $cloud = document.querySelector('.fa-cloud-moon-rain');
 const $clock = document.querySelector('.fa-clock');
+const $music = document.querySelector('.fa-music');
 const $cloudp = $cloud.nextElementSibling;
 const $clockp = $clock.nextElementSibling;
 const $mainlogo = document.querySelector('.mainlogo');
@@ -241,8 +242,8 @@ function changeViews(newview) {
 
 $mainlogo.addEventListener('click', () => changeViews('home'));
 
-window.addEventListener('click', () => {
-  if (event.target.classList.contains('fa-clock') && $icon.firstElementChild !== event.target) {
+$clock.addEventListener('click', () => {
+  if ($icon.firstElementChild !== event.target) {
     changeSongs('time');
     if (songview.classList.contains('hidden')) {
       changeViews();
@@ -251,8 +252,8 @@ window.addEventListener('click', () => {
   }
 });
 
-window.addEventListener('click', () => {
-  if (event.target.classList.contains('fa-cloud-moon-rain') && $icon.firstElementChild !== event.target) {
+$cloud.addEventListener('click', () => {
+  if ($icon.firstElementChild !== event.target) {
     changeSongs('weather');
     if (songview.classList.contains('hidden')) {
       changeViews();
@@ -261,11 +262,7 @@ window.addEventListener('click', () => {
   }
 });
 
-window.addEventListener('click', () => {
-  if (event.target.classList.contains('fa-music')) {
-    changeViews('favorites');
-  }
-});
+$music.addEventListener('click', () => changeViews('favorites'));
 
 maincontainer.addEventListener('click', () => {
   const favoritesancestor = event.target.closest('.container');
