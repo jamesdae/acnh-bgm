@@ -124,9 +124,9 @@ function currentSongBorder(event) {
   }
   for (var i = 0; i < $songs.length; i++) {
     if ($songs[i] !== event.target) {
-      $songs[i].classList.remove('playing');
+      $songs[i].parentElement.parentElement.classList.remove('playing');
     } else if ($songs[i] === event.target) {
-      $songs[i].classList.add('playing');
+      $songs[i].parentElement.parentElement.classList.add('playing');
     }
   }
 }
