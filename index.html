@@ -17,7 +17,7 @@
   <link rel="stylesheet" href="css/layout.css">
   <link rel="stylesheet" href="css/styles.css">
 </head>
-<body>
+<body class="lightgreenback">
   <header id="header" class="column-full greenback">
     <div class="container row centereditems spacebetween">
       <div class="logo row justifiedcenter">
@@ -28,6 +28,19 @@
     </div>
   </header>
   <main class="container">
+    <div class="row justifiedcenter centereditems wholepage lightgreenback loading">
+      <div class="lds-roller">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+      <p class="loadingfont whitetext">Loading...</p>
+    </div>
     <div data-view="home" class="container row home">
       <div class="selectrow row column-full justifiedcenter">
         <h1 class="ul-songs select justifiedcenter">Select a Category:</h1>
@@ -47,7 +60,7 @@
     </div>
 
     <div data-view="songs" class="songs row hidden">
-      <div class="column-half">
+      <div class="column-half column">
         <div class="icon column left centereditems justifiedcenter">
           <i class="fa-regular fa-clock bigicon whitetext"></i>
           <p class="whitetext relative">Time of Day</p>
@@ -55,7 +68,6 @@
       </div>
       <div class="column-half column">
         <ul class="column ul-songs">
-
         </ul>
         <div class="icon column right centereditems justifiedcenter">
           <i class="fa-solid fa-cloud-moon-rain bigicon whitetext"></i>
