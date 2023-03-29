@@ -2,8 +2,12 @@
   display: none !important;
 }
 
+ul {
+  margin: 16px 10px;
+}
+
 .container {
-  max-width: 575px;
+  max-width: 100%;
   margin: 0 auto;
   padding: 0 1.5rem;
 }
@@ -36,6 +40,7 @@
   margin: 10 0 0;
   text-decoration: underline;
   scale: 1.5;
+  width: fit-content;
 }
 
 .weather {
@@ -66,7 +71,7 @@
 
 @media screen and (min-width: 768px) {
   .container {
-    max-width: 900px;
+    max-width: 60rem;
   }
 
   .column-full,
@@ -91,12 +96,6 @@
   }
 }
 
-@media screen and (max-width: 600px) {
-  ul {
-    margin: 16px 10px;
-  }
-}
-
 main.container {
   padding: 1rem 0;
 }
@@ -110,14 +109,17 @@ main.container {
   max-height: 100%;
 }
 
-.modal {
+.wholepage {
   position: fixed;
   top: 0;
   right: 0;
   bottom: 0;
   left: 0;
-  background-color: rgb(50 50 50 / 80%);
-  z-index: 20;
+  z-index: 9;
+}
+
+.modal.wholepage {
+  z-index: 15;
 }
 
 .textalign {
@@ -126,4 +128,16 @@ main.container {
 
 .bigfont {
   font-size: larger;
+}
+
+.centerself {
+  align-self: center;
+}
+
+.greyback {
+  background-color: rgb(50 50 50 / 80%);
+}
+
+.loadingfont {
+  font-size: 70px;
 }

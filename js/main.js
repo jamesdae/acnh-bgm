@@ -1,7 +1,6 @@
 /* global data */
 /* exported data */
 
-var xhr = new XMLHttpRequest();
 var $main = document.querySelector('ul');
 const maincontainer = document.querySelector('main.container');
 var arrayOfSongs = [];
@@ -20,29 +19,48 @@ const $clockp = $clock.nextElementSibling;
 const $mainlogo = document.querySelector('.mainlogo');
 const headnav = document.querySelector('.headnav');
 const ulplaylist = document.getElementById('favs');
+const loadingspinner = document.querySelector('.loading');
 
 var rainy = document.createElement('div');
 var rainyp = document.createElement('p');
 rainy.setAttribute('class', 'weather column');
-rainyp.setAttribute('class', 'category textalign');
+rainyp.setAttribute('class', 'category textalign centerself');
 var sunny = document.createElement('div');
 var sunnyp = document.createElement('p');
 sunny.setAttribute('class', 'weather column');
-sunnyp.setAttribute('class', 'category textalign');
+sunnyp.setAttribute('class', 'category textalign centerself');
 var snowy = document.createElement('div');
 var snowyp = document.createElement('p');
 snowy.setAttribute('class', 'weather column');
-snowyp.setAttribute('class', 'category textalign');
+snowyp.setAttribute('class', 'category textalign centerself');
 
-xhr.open('GET', 'https://acnhapi.com/v1/backgroundmusic');
-xhr.responseType = 'json';
-xhr.addEventListener('load', function () {
-  arrayOfSongs = Object.values(xhr.response);
-  renderSongs('time');
-});
-xhr.send();
+function fetchSongs() {
+  return new Promise((resolve, reject) => {
+    const xhr = new XMLHttpRequest();
+    xhr.open('GET', 'https://acnhapi.com/v1/backgroundmusic');
+    xhr.responseType = 'json';
+    xhr.addEventListener('load', function () {
+      if (xhr.status === 200) {
+        const fetchedsongs = Object.values(xhr.response);
+        resolve(fetchedsongs);
+      } else {
+        reject(xhr.statusText);
+      }
+    });
+    xhr.send();
+  });
+}
+
+fetchSongs()
+  .then(fetchedsongs => {
+    arrayOfSongs = fetchedsongs;
+    renderSongs('time');
+    loadingspinner.classList.add('hidden');
+  })
+  .catch(err => console.error(err));
 
 function renderSongs(view) {
+  loadingspinner.classList.remove('hidden');
   rainyp.textContent = 'Rainy Weather';
   sunnyp.textContent = 'Sunny Weather';
   snowyp.textContent = 'Snowy Weather';
@@ -67,7 +85,7 @@ function renderSongs(view) {
 
     if (view === 'time') {
       var timeOfDay = document.createElement('p');
-      timeOfDay.setAttribute('class', 'category textalign');
+      timeOfDay.setAttribute('class', 'category textalign centerself');
       switch (i) {
         case 0:
           timeOfDay.textContent = 'Night / Dawn';
@@ -107,7 +125,6 @@ function renderSongs(view) {
           break;
       }
     }
-
     $song.addEventListener('play', () => {
       pauseOthers(event);
       headnav.classList.remove('currentlyplaying');
@@ -115,6 +132,7 @@ function renderSongs(view) {
     $song.addEventListener('ended', startNext);
     $song.addEventListener('playing', currentSongBorder);
   }
+  loadingspinner.classList.add('hidden');
 }
 
 function currentSongBorder(event) {
@@ -309,7 +327,7 @@ maincontainer.addEventListener('click', () => {
 
 function addModal(forListElement) {
   var $deleteModal = document.createElement('div');
-  $deleteModal.setAttribute('class', 'modal row justifiedcenter centereditems column-full');
+  $deleteModal.setAttribute('class', 'modal wholepage greyback row justifiedcenter centereditems column-full');
   var $popUp = document.createElement('div');
   $popUp.setAttribute('class', 'popup centereditems spacearound column-half row');
   $deleteModal.appendChild($popUp);
@@ -346,7 +364,7 @@ function addModal(forListElement) {
 }
 
 function removeModal() {
-  const allmodals = document.querySelectorAll('.modal');
+  const allmodals = document.querySelectorAll('.modal.greyback');
   for (let i = 0; i < allmodals.length; i++) {
     favsview.removeChild(allmodals[i]);
   }
