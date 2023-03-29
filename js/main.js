@@ -24,15 +24,15 @@ const ulplaylist = document.getElementById('favs');
 var rainy = document.createElement('div');
 var rainyp = document.createElement('p');
 rainy.setAttribute('class', 'weather column');
-rainyp.setAttribute('class', 'category textalign');
+rainyp.setAttribute('class', 'category textalign centerself');
 var sunny = document.createElement('div');
 var sunnyp = document.createElement('p');
 sunny.setAttribute('class', 'weather column');
-sunnyp.setAttribute('class', 'category textalign');
+sunnyp.setAttribute('class', 'category textalign centerself');
 var snowy = document.createElement('div');
 var snowyp = document.createElement('p');
 snowy.setAttribute('class', 'weather column');
-snowyp.setAttribute('class', 'category textalign');
+snowyp.setAttribute('class', 'category textalign centerself');
 
 xhr.open('GET', 'https://acnhapi.com/v1/backgroundmusic');
 xhr.responseType = 'json';
@@ -67,7 +67,7 @@ function renderSongs(view) {
 
     if (view === 'time') {
       var timeOfDay = document.createElement('p');
-      timeOfDay.setAttribute('class', 'category textalign');
+      timeOfDay.setAttribute('class', 'category textalign centerself');
       switch (i) {
         case 0:
           timeOfDay.textContent = 'Night / Dawn';

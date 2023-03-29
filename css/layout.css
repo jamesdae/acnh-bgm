@@ -2,8 +2,17 @@
   display: none !important;
 }
 
+/*
+body {
+  overflow-x: hidden;
+} */
+
+ul {
+  margin: 16px 10px;
+}
+
 .container {
-  max-width: 575px;
+  max-width: 100%;
   margin: 0 auto;
   padding: 0 1.5rem;
 }
@@ -36,6 +45,7 @@
   margin: 10 0 0;
   text-decoration: underline;
   scale: 1.5;
+  width: fit-content;
 }
 
 .weather {
@@ -66,7 +76,7 @@
 
 @media screen and (min-width: 768px) {
   .container {
-    max-width: 900px;
+    max-width: 60rem;
   }
 
   .column-full,
@@ -88,12 +98,6 @@
     justify-content: center;
     align-items: center;
     height: 400px;
-  }
-}
-
-@media screen and (max-width: 600px) {
-  ul {
-    margin: 16px 10px;
   }
 }
 
@@ -126,4 +130,8 @@ main.container {
 
 .bigfont {
   font-size: larger;
+}
+
+.centerself {
+  align-self: center;
 }
