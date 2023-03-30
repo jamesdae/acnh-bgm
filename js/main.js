@@ -373,7 +373,7 @@ function removeModal() {
 
 ulplaylist.addEventListener('mouseover', event => {
   if (event.target.classList.contains('leaf')) {
-    event.target.setAttribute('src', 'images/deletex.png');
+    event.target.setAttribute('src', 'images/delete-x.png');
   }
 });
 
