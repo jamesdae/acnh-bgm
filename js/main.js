@@ -16,7 +16,7 @@ const $clock = document.querySelector('.fa-clock');
 const $music = document.querySelector('.fa-music');
 const $cloudp = $cloud.nextElementSibling;
 const $clockp = $clock.nextElementSibling;
-const $mainlogo = document.querySelector('.mainlogo');
+const $mainlogo = document.querySelector('.logo');
 const headnav = document.querySelector('.headnav');
 const ulplaylist = document.getElementById('favs');
 const loadingspinner = document.querySelector('.loading');
@@ -398,7 +398,7 @@ $main.addEventListener('mouseout', event => {
 ulplaylist.addEventListener('click', event => {
   const tomove = event.target.closest('li');
   const favlist = ulplaylist.querySelectorAll('li');
-  if (event.target.classList.contains('fa-chevron-up') && (tomove.previousElementSibling.previousElementSibling)) {
+  if (event.target.firstElementChild.classList.contains('fa-chevron-up') && (tomove.previousElementSibling.previousElementSibling)) {
     for (let i = 0; i < favlist.length; i++) {
       if (favlist[i] === tomove) {
         const tempid = data.entries[i - 1];
@@ -408,7 +408,7 @@ ulplaylist.addEventListener('click', event => {
     }
     ulplaylist.insertBefore(tomove, tomove.previousElementSibling);
   }
-  if (event.target.classList.contains('fa-chevron-down') && (tomove.nextElementSibling)) {
+  if (event.target.firstElementChild.classList.contains('fa-chevron-down') && (tomove.nextElementSibling)) {
     for (let i = 0; i < favlist.length; i++) {
       if (favlist[i] === tomove) {
         const tempid = data.entries[i - 1];
@@ -458,12 +458,16 @@ function makeListItem($songname, leafSong) {
 }
 
 function makeIcons() {
-  const up = document.createElement('i');
-  const down = document.createElement('i');
+  const up = document.createElement('button');
+  const down = document.createElement('button');
+  const arrowup = document.createElement('i');
+  const arrowdown = document.createElement('i');
   const shifticons = document.createElement('div');
   shifticons.setAttribute('class', 'column justifiedcenter');
-  up.setAttribute('class', 'fa-solid fa-chevron-up smallicon');
-  down.setAttribute('class', 'fa-solid fa-chevron-down smallicon');
+  arrowup.setAttribute('class', 'fa-solid fa-chevron-up smallicon');
+  arrowdown.setAttribute('class', 'fa-solid fa-chevron-down smallicon');
+  up.appendChild(arrowup);
+  down.appendChild(arrowdown);
   shifticons.appendChild(up);
   shifticons.appendChild(down);
   return shifticons;
