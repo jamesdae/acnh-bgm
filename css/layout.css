@@ -141,3 +141,7 @@ main.container {
 .loadingfont {
   font-size: 70px;
 }
+
+.centered-content {
+  align-content: center;
+}

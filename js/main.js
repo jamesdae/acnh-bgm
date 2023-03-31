@@ -284,9 +284,10 @@ $music.addEventListener('click', () => changeViews('favorites'));
 
 maincontainer.addEventListener('click', () => {
   const favoritesancestor = event.target.closest('.container');
-  if (event.target.classList.contains('leaf') && !favoritesancestor.classList.contains('favorites')) {
+  const addButton = event.target.closest('.add-button');
+  if (addButton && addButton.firstElementChild.classList.contains('leaf') && !favoritesancestor.classList.contains('favorites')) {
     event.target.setAttribute('src', 'images/leaf.png');
-    const favclone = event.target.parentElement.parentElement.cloneNode(true);
+    const favclone = event.target.closest('li').cloneNode(true);
     const shifticons = makeIcons();
     favclone.lastElementChild.lastElementChild.addEventListener('pause', () => {
       if (event.target.classList.contains('playing')) {
@@ -315,13 +316,11 @@ maincontainer.addEventListener('click', () => {
       data.entries.push(newObj);
       ulplaylist.appendChild(favclone);
     }
-  } else if (event.target.classList.contains('leaf') && favoritesancestor.classList.contains('favorites')) {
-    event.target.addEventListener('click', () => {
-      const forListElement = event.target.closest('li');
-      const $deleteModal = addModal(forListElement);
-      favsview.appendChild($deleteModal);
-      document.querySelector('body').style.overflow = 'hidden';
-    });
+  } else if (addButton && addButton.firstElementChild.classList.contains('leaf') && favoritesancestor.classList.contains('favorites')) {
+    const forListElement = event.target.closest('li');
+    const $deleteModal = addModal(forListElement);
+    favsview.appendChild($deleteModal);
+    document.querySelector('body').style.overflow = 'hidden';
   }
 });
 
@@ -398,7 +397,9 @@ $main.addEventListener('mouseout', event => {
 ulplaylist.addEventListener('click', event => {
   const tomove = event.target.closest('li');
   const favlist = ulplaylist.querySelectorAll('li');
-  if (event.target.firstElementChild.classList.contains('fa-chevron-up') && (tomove.previousElementSibling.previousElementSibling)) {
+  const shiftbutton = event.target.closest('button');
+  if (!shiftbutton || event.target.classList.contains('leaf')) return;
+  if ((shiftbutton.firstElementChild.classList.contains('fa-chevron-up')) && (tomove.previousElementSibling.previousElementSibling)) {
     for (let i = 0; i < favlist.length; i++) {
       if (favlist[i] === tomove) {
         const tempid = data.entries[i - 1];
@@ -407,8 +408,7 @@ ulplaylist.addEventListener('click', event => {
       }
     }
     ulplaylist.insertBefore(tomove, tomove.previousElementSibling);
-  }
-  if (event.target.firstElementChild.classList.contains('fa-chevron-down') && (tomove.nextElementSibling)) {
+  } else if ((shiftbutton.firstElementChild.classList.contains('fa-chevron-down')) && (tomove.nextElementSibling)) {
     for (let i = 0; i < favlist.length; i++) {
       if (favlist[i] === tomove) {
         const tempid = data.entries[i - 1];
@@ -433,11 +433,14 @@ window.addEventListener('DOMContentLoaded', function (event) {
 function makeLeafSong() {
   var leafSong = document.createElement('div');
   leafSong.setAttribute('class', 'spacearound row');
+  const addButton = document.createElement('button');
+  addButton.setAttribute('class', 'add-button');
   var leaf = document.createElement('img');
   leaf.setAttribute('src', 'images/leaf.png');
   leaf.setAttribute('alt', 'leaf icon');
   leaf.setAttribute('class', 'leaf');
-  leafSong.appendChild(leaf);
+  addButton.appendChild(leaf);
+  leafSong.appendChild(addButton);
   return leafSong;
 }
 
@@ -466,6 +469,8 @@ function makeIcons() {
   shifticons.setAttribute('class', 'column justifiedcenter');
   arrowup.setAttribute('class', 'fa-solid fa-chevron-up smallicon');
   arrowdown.setAttribute('class', 'fa-solid fa-chevron-down smallicon');
+  up.setAttribute('class', 'shift row justifiedcenter centered-content');
+  down.setAttribute('class', 'shift row justifiedcenter centered-content');
   up.appendChild(arrowup);
   down.appendChild(arrowdown);
   shifticons.appendChild(up);
