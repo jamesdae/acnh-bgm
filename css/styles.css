@@ -8,20 +8,20 @@
   z-index: 10;
 }
 
-.lightgreenback {
+.light-green-back {
   background-color: #91c166;
 }
 
-.audioplayer {
+.audio-player {
   height: 50px;
   width: calc(100% - 90px);
 }
 
-.mainlogo {
+.main-logo {
   width: 100%;
 }
 
-.songtitle {
+.song-title {
   margin: 0 45px 0 0;
   align-self: flex-end;
 }
@@ -32,18 +32,18 @@
   height: 95px;
 }
 
-.logo > p.whitetext {
+.logo > p.white-text {
   margin: 0;
   font-size: 24px;
   bottom: 15px;
 }
 
-.bigicon {
+.big-icon {
   max-height: 80px;
   scale: 4.4;
 }
 
-.smallicon {
+.small-icon {
   scale: 0.6;
 }
 
@@ -58,7 +58,7 @@
   list-style: none;
 }
 
-.slightlybig {
+.slightly-big {
   scale: 1.5;
 }
 
@@ -67,7 +67,7 @@
   align-self: center;
 }
 
-.whitetext {
+.white-text {
   color: white;
 }
 
@@ -80,20 +80,19 @@
   width: 400px;
 }
 
-.nodecor {
+.no-decor {
   text-decoration: none;
 }
 
 .icon,
-.logo,
 .leaf,
-.headnav {
+.head-nav {
   transition: all 1s ease-out;
 }
 
 .icon:hover,
 .leaf:hover,
-.headnav:hover {
+.head-nav:hover {
   transform: scale(1.1);
 }
 
@@ -101,7 +100,7 @@ button:hover {
   cursor: pointer;
 }
 
-.greenback {
+.green-back {
   background-color: #35761e;
 }
 
@@ -109,7 +108,7 @@ button:hover {
   background-color: #f87272;
 }
 
-.popup {
+.pop-up {
   height: 125px;
   background-color: white;
   border-radius: 5px;
@@ -117,18 +116,28 @@ button:hover {
   max-width: 90%;
 }
 
-.cancelp {
+.cancel-text {
   margin: 15px 0 0;
 }
 
-.modalbutton {
+.modal-button {
   width: 80px;
   height: 30px;
   border-radius: 4px;
   border-style: none;
 }
 
-.currentlyplaying {
+.add-button {
+  border: none;
+  background-color: transparent;
+}
+
+.shift {
+  height: 1rem;
+  width: 1rem;
+}
+
+.currently-playing {
   animation: wiggle 4s linear infinite;
 }
 
@@ -267,14 +276,4 @@ button:hover {
   100% {
     transform: rotate(360deg);
   }
-}
-
-.add-button {
-  border: none;
-  background-color: transparent;
-}
-
-.shift {
-  height: 1rem;
-  width: 1rem;
 }

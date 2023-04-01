@@ -17,22 +17,22 @@ const $music = document.querySelector('.fa-music');
 const $cloudp = $cloud.nextElementSibling;
 const $clockp = $clock.nextElementSibling;
 const $mainlogo = document.querySelector('.logo');
-const headnav = document.querySelector('.headnav');
+const headnav = document.querySelector('.head-nav');
 const ulplaylist = document.getElementById('favs');
 const loadingspinner = document.querySelector('.loading');
 
 var rainy = document.createElement('div');
 var rainyp = document.createElement('p');
 rainy.setAttribute('class', 'weather column');
-rainyp.setAttribute('class', 'category textalign centerself');
+rainyp.setAttribute('class', 'category align-center center-self');
 var sunny = document.createElement('div');
 var sunnyp = document.createElement('p');
 sunny.setAttribute('class', 'weather column');
-sunnyp.setAttribute('class', 'category textalign centerself');
+sunnyp.setAttribute('class', 'category align-center center-self');
 var snowy = document.createElement('div');
 var snowyp = document.createElement('p');
 snowy.setAttribute('class', 'weather column');
-snowyp.setAttribute('class', 'category textalign centerself');
+snowyp.setAttribute('class', 'category align-center center-self');
 
 function fetchSongs() {
   return new Promise((resolve, reject) => {
@@ -77,7 +77,7 @@ function renderSongs(view) {
     $song.appendChild($audio);
     leafSong.appendChild($song);
     var $songname = document.createElement('p');
-    $songname.setAttribute('class', 'songtitle nodecor');
+    $songname.setAttribute('class', 'song-title no-decor');
     var rawtitle = lastChars(8, song['file-name']);
     var newTitle = lastChars(5, rawtitle) + ' ' + firstChars(2, rawtitle);
     $songname.textContent = newTitle;
@@ -85,7 +85,7 @@ function renderSongs(view) {
 
     if (view === 'time') {
       var timeOfDay = document.createElement('p');
-      timeOfDay.setAttribute('class', 'category textalign centerself');
+      timeOfDay.setAttribute('class', 'category align-center center-self');
       switch (i) {
         case 0:
           timeOfDay.textContent = 'Night / Dawn';
@@ -127,7 +127,7 @@ function renderSongs(view) {
     }
     $song.addEventListener('play', () => {
       pauseOthers(event);
-      headnav.classList.remove('currentlyplaying');
+      headnav.classList.remove('currently-playing');
     });
     $song.addEventListener('ended', startNext);
     $song.addEventListener('playing', currentSongBorder);
@@ -138,7 +138,7 @@ function renderSongs(view) {
 function currentSongBorder(event) {
   var $songs = document.querySelectorAll('audio');
   if (event.target.closest('.container').classList.contains('favorites')) {
-    headnav.classList.add('currentlyplaying');
+    headnav.classList.add('currently-playing');
   }
   for (var i = 0; i < $songs.length; i++) {
     if ($songs[i] !== event.target) {
@@ -163,7 +163,7 @@ function startNext(event) {
   for (var i = 0; i < $songs.length; i++) {
     if (!$songs[i + 1]) {
       $songs[i].classList.remove('playing');
-      headnav.classList.remove('currentlyplaying');
+      headnav.classList.remove('currently-playing');
       return;
     } else if ($songs[i] === event.target) {
       $songs[i + 1].currentTime = 0;
@@ -291,12 +291,12 @@ maincontainer.addEventListener('click', () => {
     const shifticons = makeIcons();
     favclone.lastElementChild.lastElementChild.addEventListener('pause', () => {
       if (event.target.classList.contains('playing')) {
-        headnav.classList.remove('currentlyplaying');
+        headnav.classList.remove('currently-playing');
       }
     });
     favclone.lastElementChild.lastElementChild.addEventListener('play', function () {
       if (event.target.closest('.container').classList.contains('favorites')) {
-        headnav.classList.add('currentlyplaying');
+        headnav.classList.add('currently-playing');
       }
       pauseOthers(event);
     });
@@ -308,7 +308,7 @@ maincontainer.addEventListener('click', () => {
       title: favclone.firstElementChild.textContent,
       src: favclone.querySelector('source').getAttribute('src')
     };
-    if (ulplaylist.firstElementChild.classList.contains('tempbanner')) {
+    if (ulplaylist.firstElementChild.classList.contains('temp-banner')) {
       ulplaylist.firstElementChild.classList.add('hidden');
       data.entries.push(newObj);
       ulplaylist.appendChild(favclone);
@@ -326,23 +326,23 @@ maincontainer.addEventListener('click', () => {
 
 function addModal(forListElement) {
   var $deleteModal = document.createElement('div');
-  $deleteModal.setAttribute('class', 'modal wholepage greyback row justifiedcenter centereditems column-full');
+  $deleteModal.setAttribute('class', 'modal whole-page grey-back row justified-center centered-items column-full');
   var $popUp = document.createElement('div');
-  $popUp.setAttribute('class', 'popup centereditems spacearound column-half row');
+  $popUp.setAttribute('class', 'pop-up centered-items space-around column-half row');
   $deleteModal.appendChild($popUp);
   var $modaltext = document.createElement('div');
   $modaltext.setAttribute('class', 'modaltext column-full');
   $popUp.appendChild($modaltext);
   var $deleteText = document.createElement('p');
   $deleteText.innerText = 'Are you sure you want to delete this song?';
-  $deleteText.setAttribute('class', 'cancelp slightlybig textalign');
+  $deleteText.setAttribute('class', 'cancel-text slightly-big align-center');
   $modaltext.appendChild($deleteText);
   var $cancelButton = document.createElement('button');
-  $cancelButton.setAttribute('class', 'greenback modalbutton whitetext');
+  $cancelButton.setAttribute('class', 'green-back modal-button white-text');
   $cancelButton.innerText = 'KEEP';
   $popUp.appendChild($cancelButton);
   var $confirmButton = document.createElement('button');
-  $confirmButton.setAttribute('class', 'salmon whitetext modalbutton');
+  $confirmButton.setAttribute('class', 'salmon white-text modal-button');
   $confirmButton.innerText = 'DELETE';
   $popUp.appendChild($confirmButton);
   $cancelButton.addEventListener('click', removeModal);
@@ -363,7 +363,7 @@ function addModal(forListElement) {
 }
 
 function removeModal() {
-  const allmodals = document.querySelectorAll('.modal.greyback');
+  const allmodals = document.querySelectorAll('.modal.grey-back');
   for (let i = 0; i < allmodals.length; i++) {
     favsview.removeChild(allmodals[i]);
   }
@@ -432,7 +432,7 @@ window.addEventListener('DOMContentLoaded', function (event) {
 
 function makeLeafSong() {
   var leafSong = document.createElement('div');
-  leafSong.setAttribute('class', 'spacearound row');
+  leafSong.setAttribute('class', 'space-around row');
   const addButton = document.createElement('button');
   addButton.setAttribute('class', 'add-button');
   var leaf = document.createElement('img');
@@ -448,7 +448,7 @@ function makeSong() {
   var song = document.createElement('audio');
   song.setAttribute('controls', '');
   song.setAttribute('name', 'media');
-  song.setAttribute('class', 'audioplayer');
+  song.setAttribute('class', 'audio-player');
   return song;
 }
 
@@ -466,11 +466,11 @@ function makeIcons() {
   const arrowup = document.createElement('i');
   const arrowdown = document.createElement('i');
   const shifticons = document.createElement('div');
-  shifticons.setAttribute('class', 'column justifiedcenter');
-  arrowup.setAttribute('class', 'fa-solid fa-chevron-up smallicon');
-  arrowdown.setAttribute('class', 'fa-solid fa-chevron-down smallicon');
-  up.setAttribute('class', 'shift row justifiedcenter centered-content');
-  down.setAttribute('class', 'shift row justifiedcenter centered-content');
+  shifticons.setAttribute('class', 'column justified-center');
+  arrowup.setAttribute('class', 'fa-solid fa-chevron-up small-icon');
+  arrowdown.setAttribute('class', 'fa-solid fa-chevron-down small-icon');
+  up.setAttribute('class', 'shift row justified-center centered-content');
+  down.setAttribute('class', 'shift row justified-center centered-content');
   up.appendChild(arrowup);
   down.appendChild(arrowdown);
   shifticons.appendChild(up);
@@ -487,14 +487,14 @@ function renderOldSong(entry) {
   $song.appendChild($audio);
   leafSong.appendChild($song);
   var $songname = document.createElement('p');
-  $songname.setAttribute('class', 'songtitle nodecor');
+  $songname.setAttribute('class', 'song-title no-decor');
   $songname.textContent = entry.title;
   const $listitem = makeListItem($songname, leafSong);
   const shifticons = makeIcons();
   $listitem.lastElementChild.appendChild(shifticons);
   $song.addEventListener('play', () => {
     pauseOthers(event);
-    headnav.classList.remove('currentlyplaying');
+    headnav.classList.remove('currently-playing');
   });
   $song.addEventListener('ended', startNext);
   $song.addEventListener('playing', currentSongBorder);

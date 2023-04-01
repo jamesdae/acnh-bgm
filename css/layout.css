@@ -28,11 +28,11 @@ ul {
   margin: 2rem 0 1.5rem;
 }
 
-.justifiedcenter {
+.justified-center {
   justify-content: center;
 }
 
-.spacebetween {
+.space-between {
   justify-content: space-between;
 }
 
@@ -47,7 +47,7 @@ ul {
   gap: 15px;
 }
 
-.icon p.whitetext {
+.icon p.white-text {
   margin: 0;
   top: 24px;
 }
@@ -57,7 +57,7 @@ ul {
   flex-direction: column;
 }
 
-.spacearound {
+.space-around {
   justify-content: space-around;
 }
 
@@ -65,7 +65,7 @@ ul {
   position: relative;
 }
 
-.centereditems {
+.centered-items {
   align-items: center;
 }
 
@@ -109,7 +109,7 @@ main.container {
   max-height: 100%;
 }
 
-.wholepage {
+.whole-page {
   position: fixed;
   top: 0;
   right: 0;
@@ -118,27 +118,27 @@ main.container {
   z-index: 9;
 }
 
-.modal.wholepage {
+.modal.whole-page {
   z-index: 15;
 }
 
-.textalign {
+.align-center {
   text-align: center;
 }
 
-.bigfont {
+.big-font {
   font-size: larger;
 }
 
-.centerself {
+.center-self {
   align-self: center;
 }
 
-.greyback {
+.grey-back {
   background-color: rgb(50 50 50 / 80%);
 }
 
-.loadingfont {
+.loading-font {
   font-size: 70px;
 }
 
