@@ -8,42 +8,45 @@
   z-index: 10;
 }
 
-.lightgreenback {
+.light-green-back {
   background-color: #91c166;
 }
 
-.audioplayer {
-  height: 50px;
-  width: calc(100% - 90px);
+.audio-player {
+  width: calc(100% - 5.2rem);
 }
 
-.mainlogo {
+.main-logo {
   width: 100%;
 }
 
-.songtitle {
-  margin: 0 45px 0 0;
+.song-title {
+  position: relative;
+  top: 0;
+  right: 3rem;
+  bottom: 0;
+  margin: 0;
   align-self: flex-end;
 }
 
 .logo {
-  padding-top: 5px;
-  width: 100px;
-  height: 95px;
+  padding-top: 0.4rem;
+  width: 6rem;
+  height: 6rem;
 }
 
-.logo > p.whitetext {
+.logo > p.white-text {
   margin: 0;
-  font-size: 24px;
-  bottom: 15px;
+  font-size: 1.4rem;
+  bottom: 0.9rem;
 }
 
-.bigicon {
+.big-icon {
   max-height: 80px;
   scale: 4.4;
 }
 
-.smallicon {
+.small-icon {
   scale: 0.6;
 }
 
@@ -52,22 +55,22 @@
   border-radius: 20px;
   display: flex;
   gap: 15px;
-  padding: 20px 10px;
+  padding: 1.2rem 0.4rem;
   box-shadow: 2px 2px 5px #7a776d;
   color: #7a776d;
   list-style: none;
 }
 
-.slightlybig {
+.slightly-big {
   scale: 1.5;
 }
 
 .leaf {
-  width: 40px;
+  width: 2.4rem;
   align-self: center;
 }
 
-.whitetext {
+.white-text {
   color: white;
 }
 
@@ -77,36 +80,30 @@
 }
 
 .select {
-  width: 400px;
+  width: 60%;
 }
 
-.nodecor {
+.no-decor {
   text-decoration: none;
 }
 
 .icon,
-.logo,
 .leaf,
-.headnav {
+.head-nav {
   transition: all 1s ease-out;
 }
 
 .icon:hover,
 .leaf:hover,
-.headnav:hover {
+.head-nav:hover {
   transform: scale(1.1);
 }
 
-.smallicon,
-.icon:hover,
-.leaf:hover,
-.headnav:hover,
-.logo:hover,
 button:hover {
   cursor: pointer;
 }
 
-.greenback {
+.green-back {
   background-color: #35761e;
 }
 
@@ -114,26 +111,35 @@ button:hover {
   background-color: #f87272;
 }
 
-.popup {
-  height: 125px;
+.pop-up {
   background-color: white;
   border-radius: 5px;
-  font-weight: bolder;
+  font-weight: 400;
   max-width: 90%;
+  padding-bottom: 1rem;
 }
 
-.cancelp {
-  margin: 15px 0 0;
+.cancel-text {
+  margin: 1rem 0 0;
 }
 
-.modalbutton {
-  width: 80px;
-  height: 30px;
+.modal-button {
   border-radius: 4px;
   border-style: none;
+  line-height: 1.4;
 }
 
-.currentlyplaying {
+.add-button {
+  border: none;
+  background-color: transparent;
+}
+
+.shift {
+  height: 1rem;
+  width: 1rem;
+}
+
+.currently-playing {
   animation: wiggle 4s linear infinite;
 }
 
