@@ -15,3 +15,8 @@ window.addEventListener('beforeunload', function (event) {
   var dataJSON = JSON.stringify(data);
   this.localStorage.setItem('javascript-local-storage', dataJSON);
 });
+
+window.addEventListener('pagehide', function (event) {
+  var dataJSON = JSON.stringify(data);
+  this.localStorage.setItem('javascript-local-storage', dataJSON);
+});

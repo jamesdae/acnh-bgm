@@ -127,7 +127,7 @@ main.container {
 }
 
 .big-font {
-  font-size: larger;
+  font-size: 1.4rem;
 }
 
 .center-self {
@@ -139,7 +139,7 @@ main.container {
 }
 
 .loading-font {
-  font-size: 70px;
+  font-size: 4.2rem;
 }
 
 .centered-content {

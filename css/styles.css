@@ -34,8 +34,8 @@
 
 .logo > p.white-text {
   margin: 0;
-  font-size: 24px;
-  bottom: 15px;
+  font-size: 1.4rem;
+  bottom: 0.9rem;
 }
 
 .big-icon {
@@ -112,7 +112,7 @@ button:hover {
   height: 125px;
   background-color: white;
   border-radius: 5px;
-  font-weight: bolder;
+  font-weight: 400;
   max-width: 90%;
 }
 
