@@ -3,7 +3,7 @@
 }
 
 ul {
-  margin: 16px 10px;
+  margin: 1rem 0.5rem;
 }
 
 .container {
@@ -24,7 +24,7 @@ ul {
 
 .icon {
   align-self: center;
-  height: 80px;
+  padding: 1.6rem;
   margin: 2rem 0 1.5rem;
 }
 
@@ -88,11 +88,8 @@ ul {
     top: 50%;
   }
 
-  .tempflex {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 400px;
+  .icon {
+    padding: 0;
   }
 }
 
@@ -100,13 +97,8 @@ main.container {
   padding: 1rem 0;
 }
 
-.home {
-  width: 400px;
-}
-
-.favorites {
-  width: 100%;
-  max-height: 100%;
+.favorites.container {
+  padding: 0;
 }
 
 .whole-page {
@@ -144,4 +136,8 @@ main.container {
 
 .centered-content {
   align-content: center;
+}
+
+.categories {
+  width: 40%;
 }

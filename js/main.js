@@ -228,9 +228,7 @@ function changeViews(newview) {
   let hiddenview;
   let otherview2;
   let otherview;
-  maincontainer.classList.remove('tempflex');
   if (newview === 'favorites' && !ulplaylist.firstElementChild.classList.contains('hidden')) {
-    maincontainer.classList.add('tempflex');
     hiddenview = favsview;
     otherview = homeview;
     otherview2 = songview;
@@ -331,18 +329,18 @@ function addModal(forListElement) {
   $popUp.setAttribute('class', 'pop-up centered-items space-around column-half row');
   $deleteModal.appendChild($popUp);
   var $modaltext = document.createElement('div');
-  $modaltext.setAttribute('class', 'modaltext column-full');
+  $modaltext.setAttribute('class', 'column-full');
   $popUp.appendChild($modaltext);
   var $deleteText = document.createElement('p');
   $deleteText.innerText = 'Are you sure you want to delete this song?';
-  $deleteText.setAttribute('class', 'cancel-text slightly-big align-center');
+  $deleteText.setAttribute('class', 'cancel-text big-font align-center');
   $modaltext.appendChild($deleteText);
   var $cancelButton = document.createElement('button');
-  $cancelButton.setAttribute('class', 'green-back modal-button white-text');
+  $cancelButton.setAttribute('class', 'green-back modal-button big-font white-text');
   $cancelButton.innerText = 'KEEP';
   $popUp.appendChild($cancelButton);
   var $confirmButton = document.createElement('button');
-  $confirmButton.setAttribute('class', 'salmon white-text modal-button');
+  $confirmButton.setAttribute('class', 'salmon white-text big-font modal-button');
   $confirmButton.innerText = 'DELETE';
   $popUp.appendChild($confirmButton);
   $cancelButton.addEventListener('click', removeModal);
