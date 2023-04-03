@@ -28,6 +28,7 @@ Here is a live link to my application: [ACNH BGM](https://jamesdae.github.io/acn
 ## Stretch Features
 
 - Find additional endpoints for the ACNH API to add new categories and songs.
+- User can click arrows to play next or previous song.
 - User can drag songs in playlist to edit order.
 
 ## Development
@@ -41,3 +42,9 @@ Here is a live link to my application: [ACNH BGM](https://jamesdae.github.io/acn
     ```
 
 1. Start the project by opening index.html in browser. Optimized for Google Chrome.
+
+##
+
+### Disclaimer:
+
+ACNH BGM is a non-commercial project developed for educational purposes, and is not affiliated with, endorsed by, or in any way officially connected to Nintendo or Animal Crossing. All assets used in the app, including but not limited to music and images, are the property of Nintendo and are used solely for non-commercial and educational purposes. ACNH BGM claims no ownership of any intellectual property associated with Nintendo or Animal Crossing.
