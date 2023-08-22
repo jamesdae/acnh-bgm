@@ -19,7 +19,10 @@ const $clockp = $clock.nextElementSibling;
 const $mainlogo = document.querySelector('.logo');
 const headnav = document.querySelector('.head-nav');
 const ulplaylist = document.getElementById('favs');
-const loadingspinner = document.querySelector('.loading');
+const loadingContent = document.querySelector('.loading');
+const spinners = document.querySelector('.lds-roller');
+const loadingfont = document.querySelector('.loading-font');
+const failedResponseMessage = document.querySelector('.failed');
 
 var rainy = document.createElement('div');
 var rainyp = document.createElement('p');
@@ -34,7 +37,7 @@ var snowyp = document.createElement('p');
 snowy.setAttribute('class', 'weather column');
 snowyp.setAttribute('class', 'category align-center center-self');
 
-const TIMEOUT_DURATION = 10 * 1000; // 10 seconds in milliseconds
+const TIMEOUT_DURATION = 5 * 1000;
 
 function fetchSongs() {
   return new Promise((resolve, reject) => {
@@ -45,9 +48,10 @@ function fetchSongs() {
     // Set up a timeout mechanism
     const timeout = setTimeout(() => {
       xhr.abort(); // Abort the request if it takes too long
-      // eslint-disable-next-line no-console
-      console.log('Abort!!!');
-      reject(new Error('Request timed out'));
+      spinners.classList.add('hidden');
+      loadingfont.classList.add('hidden');
+      failedResponseMessage.classList.remove('hidden');
+      reject(new Error('Request timed out.'));
     }, TIMEOUT_DURATION);
 
     xhr.addEventListener('load', function () {
@@ -67,12 +71,12 @@ fetchSongs()
   .then(fetchedsongs => {
     arrayOfSongs = fetchedsongs;
     renderSongs('time');
-    loadingspinner.classList.add('hidden');
+    loadingContent.classList.add('hidden');
   })
   .catch(err => console.error(err));
 
 function renderSongs(view) {
-  loadingspinner.classList.remove('hidden');
+  loadingContent.classList.remove('hidden');
   rainyp.textContent = 'Rainy Weather';
   sunnyp.textContent = 'Sunny Weather';
   snowyp.textContent = 'Snowy Weather';
@@ -144,7 +148,7 @@ function renderSongs(view) {
     $song.addEventListener('ended', startNext);
     $song.addEventListener('playing', currentSongBorder);
   }
-  loadingspinner.classList.add('hidden');
+  loadingContent.classList.add('hidden');
 }
 
 function currentSongBorder(event) {
