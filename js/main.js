@@ -37,22 +37,19 @@ var snowyp = document.createElement('p');
 snowy.setAttribute('class', 'weather column');
 snowyp.setAttribute('class', 'category align-center center-self');
 
-const TIMEOUT_DURATION = 5 * 1000;
-
 function fetchSongs() {
   return new Promise((resolve, reject) => {
     const xhr = new XMLHttpRequest();
     xhr.open('GET', 'https://acnhapi.com/v1/backgroundmusic');
     xhr.responseType = 'json';
 
-    // Set up a timeout mechanism
     const timeout = setTimeout(() => {
       xhr.abort(); // Abort the request if it takes too long
       spinners.classList.add('hidden');
       loadingfont.classList.add('hidden');
       failedResponseMessage.classList.remove('hidden');
-      reject(new Error('Request timed out.'));
-    }, TIMEOUT_DURATION);
+      reject(new Error('Request timed out. Could not fetch audio files from API.'));
+    }, 6000);
 
     xhr.addEventListener('load', function () {
       clearTimeout(timeout);
