@@ -34,12 +34,24 @@ var snowyp = document.createElement('p');
 snowy.setAttribute('class', 'weather column');
 snowyp.setAttribute('class', 'category align-center center-self');
 
+const TIMEOUT_DURATION = 10 * 1000; // 10 seconds in milliseconds
+
 function fetchSongs() {
   return new Promise((resolve, reject) => {
     const xhr = new XMLHttpRequest();
     xhr.open('GET', 'https://acnhapi.com/v1/backgroundmusic');
     xhr.responseType = 'json';
+
+    // Set up a timeout mechanism
+    const timeout = setTimeout(() => {
+      xhr.abort(); // Abort the request if it takes too long
+      // eslint-disable-next-line no-console
+      console.log('Abort!!!');
+      reject(new Error('Request timed out'));
+    }, TIMEOUT_DURATION);
+
     xhr.addEventListener('load', function () {
+      clearTimeout(timeout);
       if (xhr.status === 200) {
         const fetchedsongs = Object.values(xhr.response);
         resolve(fetchedsongs);
